@@ -6,6 +6,7 @@
 
 # Definitions
 DIR=`pwd`
+BRANCH=$3
 LINK=$2
 ROMNAME=$1
 
@@ -14,7 +15,7 @@ ROMNAME=$1
 romsync(){
     cd $DIR;mkdir -p $ROMNAME/full;cd $ROMNAME/full
     
-    repo init $LINK
+    repo init $LINK $BRANCH
 
     # Gather the number of threads
     CPU_COUNT=$(grep -c ^processor /proc/cpuinfo)
@@ -29,12 +30,12 @@ separatestuff(){
     cd $DIR/$ROMNAME/
 
     # Only repo folder
-    mkdir $ROMNAME-repo-$(date +%Y%m%d)
-    mv full/.repo $ROMNAME-repo-$(date +%Y%m%d)
+    mkdir $ROMNAME-$BRANCH-repo-$(date +%Y%m%d)
+    mv full/.repo $ROMNAME-$BRANCH-repo-$(date +%Y%m%d)
     
     # Without repo folder
-    mkdir $ROMNAME-no-repo-$(date +%Y%m%d)
-    mv full/* $ROMNAME-no-repo-$(date +%Y%m%d)
+    mkdir $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)
+    mv full/* $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)
 }
 
 compressstuff(){
@@ -42,10 +43,10 @@ compressstuff(){
     export XZ_OPT=-9e
     
     # Only repo folder
-    time tar -cvJf "$ROMNAME-repo-$(date +%Y%m%d).tar.xz $ROMNAME-repo-$(date +%Y%m%d)/"
+    time tar -cvJf "$ROMNAME-$BRANCH-repo-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-repo-$(date +%Y%m%d)/"
     
     # Without repo folder
-    time tar -cvJf "$ROMNAME-no-repo-$(date +%Y%m%d).tar.xz $ROMNAME-no-repo-$(date +%Y%m%d)/"
+    time tar -cvJf "$ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)/"
 }
 
 uploadstuff(){
@@ -53,8 +54,8 @@ uploadstuff(){
     HOST='yourhost'
     USER='yourid'
     PASSWD='yourpw'
-    REPO='$ROMNAME-repo-$(date +%Y%m%d).tar.xz'
-    NOREPO='$ROMNAME-no-repo-$(date +%Y%m%d).tar.xz'
+    REPO='$ROMNAME-$BRANCH-repo-$(date +%Y%m%d).tar.xz'
+    NOREPO='$ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d).tar.xz'
     if [ !$(which wput) ]; then
       echo "installing wput for uploading"
       sudo apt install wput
