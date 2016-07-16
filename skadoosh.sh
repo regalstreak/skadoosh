@@ -55,24 +55,18 @@ uploadstuff(){
     PASSWD='yourpw'
     REPO='$ROMNAME-repo-$(date +%Y%m%d).tar.xz'
     NOREPO='$ROMNAME-no-repo-$(date +%Y%m%d).tar.xz'
-
+    if [ !$(which wput) ]; then
+      echo "installing wput for uploading"
+      sudo apt install wput
+    fi
     cd $DIR/$ROMNAME/
 
-# Upload Repo Only
-ftp -n $HOST <<EOF
-quote USER $USER
-quote PASS $PASSWD
-put $REPO
-quit
-EOF
+    # Upload Repo Only
+    wput ftp://"$USER":"$PASSWD"@"$HOST"/ $REPO
 
-# Upload No Repo
-ftp -n $HOST <<EOF
-quote USER $USER
-quote PASS $PASSWD
-put $NOREPO
-quit
-EOF
+
+    # Upload No Repo
+    wput ftp://"$USER":"$PASSWD"@"$HOST"/ $NOREPO
     
 }
 
