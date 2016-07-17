@@ -58,7 +58,7 @@ uploadstuff(){
     NOREPO='$ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d).tar.xz'
     
     # Check if user has wput, if not install it
-    if [ !$(which wput) ]; then
+    if [ !$( which wput ) ]; then
       echo "Installing wput for uploading"
       sudo apt install wput
     fi
