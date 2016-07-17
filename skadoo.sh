@@ -51,11 +51,11 @@ compressstuff(){
 
 uploadstuff(){
     # Definitions
-    HOST='yourhost'
-    USER='yourid'
-    PASSWD='yourpw'
-    REPO='$ROMNAME-$BRANCH-repo-$(date +%Y%m%d).tar.xz'
-    NOREPO='$ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d).tar.xz'
+    HOST="yourhost"
+    USER="yourid"
+    PASSWD="yourpw"
+    REPO="$ROMNAME-$BRANCH-repo-$(date +%Y%m%d).tar.xz"
+    NOREPO="$ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d).tar.xz"
     
     # Check if user has wput, if not install it
     if [ !$( which wput ) ]; then
