@@ -6,7 +6,7 @@
 
 # Definitions
 BRANCH=$3
-DIR=`pwd`
+DIR=$(pwd)
 LINK=$2
 ROMNAME=$1
 
