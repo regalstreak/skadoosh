@@ -66,10 +66,10 @@ uploadstuff(){
     cd $DIR/$ROMNAME/
 
     # Upload Repo Only
-    wput ftp://"$USER":"$PASSWD"@"$HOST"/ $REPO
+    wput $REPO ftp://"$USER":"$PASSWD"@"$HOST"/
 
     # Upload No Repo
-    wput ftp://"$USER":"$PASSWD"@"$HOST"/ $NOREPO
+    wput $NOREPO ftp://"$USER":"$PASSWD"@"$HOST"/
     
 }
 
