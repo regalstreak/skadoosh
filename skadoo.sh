@@ -39,14 +39,20 @@ separatestuff(){
 }
 
 compressstuff(){
+    # Check if user has pxz, if not install it
+    if [ !$( which pxz ) ]; then
+      echo "Installing pxz for multi-threaded compression"
+      sudo apt install pxz
+    fi
+    
     cd $DIR/$ROMNAME/
     export XZ_OPT=-9e
     
     # Only repo folder
-    time tar -cvJf $ROMNAME-$BRANCH-repo-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-repo-$(date +%Y%m%d)/
+    time tar -I pxz -cvf $ROMNAME-$BRANCH-repo-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-repo-$(date +%Y%m%d)/
     
     # Without repo folder
-    time tar -cvJf $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)/
+    time tar -I pxz -cvf $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)/
 }
 
 uploadstuff(){
