@@ -5,8 +5,8 @@
 
 
 # Definitions
-DIR=`pwd`
 BRANCH=$3
+DIR=`pwd`
 LINK=$2
 ROMNAME=$1
 
@@ -15,7 +15,7 @@ ROMNAME=$1
 romsync(){
     cd $DIR;mkdir -p $ROMNAME/full;cd $ROMNAME/full
     
-    repo init $LINK $BRANCH
+    repo init $LINK -b $BRANCH
 
     # Gather the number of threads
     CPU_COUNT=$(grep -c ^processor /proc/cpuinfo)
@@ -56,15 +56,17 @@ uploadstuff(){
     PASSWD='yourpw'
     REPO='$ROMNAME-$BRANCH-repo-$(date +%Y%m%d).tar.xz'
     NOREPO='$ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d).tar.xz'
+    
+    # Check if user has wput, if not install it
     if [ !$(which wput) ]; then
-      echo "installing wput for uploading"
+      echo "Installing wput for uploading"
       sudo apt install wput
     fi
+    
     cd $DIR/$ROMNAME/
 
     # Upload Repo Only
     wput ftp://"$USER":"$PASSWD"@"$HOST"/ $REPO
-
 
     # Upload No Repo
     wput ftp://"$USER":"$PASSWD"@"$HOST"/ $NOREPO
