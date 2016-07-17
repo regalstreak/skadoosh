@@ -15,7 +15,7 @@ ROMNAME=$1
 romsync(){
     cd $DIR;mkdir -p $ROMNAME/full;cd $ROMNAME/full
     
-    repo init $LINK -b $BRANCH
+    repo init -u $LINK -b $BRANCH
 
     # Gather the number of threads
     CPU_COUNT=$(grep -c ^processor /proc/cpuinfo)
