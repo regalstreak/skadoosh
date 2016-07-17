@@ -43,10 +43,10 @@ compressstuff(){
     export XZ_OPT=-9e
     
     # Only repo folder
-    time tar -cvJf "$ROMNAME-$BRANCH-repo-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-repo-$(date +%Y%m%d)/"
+    time tar -cvJf $ROMNAME-$BRANCH-repo-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-repo-$(date +%Y%m%d)/
     
     # Without repo folder
-    time tar -cvJf "$ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)/"
+    time tar -cvJf $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)/
 }
 
 uploadstuff(){
