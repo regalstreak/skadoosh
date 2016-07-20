@@ -55,6 +55,11 @@ compressstuff(){
     time tar -I pxz -cvf $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)/
 }
 
+# Check the starting time
+TIME_START=$(date +%s.%N)
+# Show the starting time
+echo -e "Starting time:$(echo "$TIME_START / 60" | bc) minutes $(echo "$TIME_START" | bc) seconds"
+
 uploadstuff(){
     # Definitions
     HOST="yourhost"
@@ -79,6 +84,12 @@ uploadstuff(){
     
 }
 
+# Check the finishing time
+TIME_END=$(date +%s.%N)
+# Show the ending time
+echo -e "Ending time:$(echo "$TIME_END / 60" | bc) minutes ($(echo "$TIME_END" | bc) seconds)"
+# Show total time taken to upoload
+echo -e "Total time elapsed:(echo "($TIME_END - $TIME_START) / 60" | bc) minutes ($(echo "$TIME_END - $TIME_START" | bc) seconds)"
 
 romsync
 separatestuff
