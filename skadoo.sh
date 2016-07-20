@@ -87,9 +87,9 @@ uploadstuff(){
 # Check the finishing time
 TIME_END=$(date +%s.%N)
 # Show the ending time
-echo -e "Ending time:$(echo "$TIME_END / 60" | bc) minutes ($(echo "$TIME_END" | bc) seconds)"
+echo -e "Ending time:$(echo "$TIME_END / 60" | bc) minutes $(echo "$TIME_END" | bc) seconds"
 # Show total time taken to upoload
-echo -e "Total time elapsed:(echo "($TIME_END - $TIME_START) / 60" | bc) minutes ($(echo "$TIME_END - $TIME_START" | bc) seconds)"
+echo -e "Total time elapsed:$(echo "($TIME_END - $TIME_START) / 60" | bc) minutes $(echo "$TIME_END - $TIME_START" | bc) seconds"
 
 romsync
 separatestuff
