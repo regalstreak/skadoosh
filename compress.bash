@@ -1,6 +1,6 @@
-name=CM
-manifest=https://github.com/CyanogenMod/android.git
-branch=cm-12.1
+name=AOSP
+manifest=https://android.googlesource.com/platform/manifest -b android-4.0.1_r1
+branch=android-6.0.1_r55
 
 ./skadoo.sh $name $manifest $branch
 
