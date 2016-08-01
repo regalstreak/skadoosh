@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Author - Neil "regalstreak" Agarwal
+# Authors - Neil "regalstreak" Agarwal, Harsh "MSF Jarvis" Shandilya, Tarang "DigiGoon" Kagathara
 # 2016
 
 
@@ -87,6 +87,9 @@ uploadstuff(){
     wput $NOREPO ftp://"$USER":"$PASSWD"@"$HOST"/
 
 }
+cleanup(){
+    cd $DIR;rm -rf $ROMNAME
+}
 
 # Check the finishing time
 TIME_END=$(date +%s.%N)
@@ -99,5 +102,6 @@ romsync
 separatestuff
 compressstuff
 uploadstuff
+cleanup
 
 echo "Thank you"
