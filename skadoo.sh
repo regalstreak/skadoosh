@@ -16,11 +16,13 @@ romsync(){
     cd $DIR;mkdir -p $ROMNAME/full;cd $ROMNAME/full
 
     repo init -u $LINK -b $BRANCH
-
+    THREAD_COUNT_SYNC=49
+    if [ $(hostname) != 'krieger' ];then
     # Gather the number of threads
     CPU_COUNT=$(grep -c ^processor /proc/cpuinfo)
     # Use 8 times the cpucount
     THREAD_COUNT_SYNC=$(($CPU_COUNT * 8))
+    fi
 
     # Sync it up!
     time repo sync -c -f --force-sync --no-clone-bundle --no-tags -j$THREAD_COUNT_SYNC
