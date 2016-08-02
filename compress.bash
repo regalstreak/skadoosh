@@ -1,6 +1,6 @@
-name=AOSP
-manifest=https://android.googlesource.com/platform/manifest -b android-4.0.1_r1
-branch=android-6.0.1_r55
+name=slim6
+manifest=github.com/SlimRoms/platform_manifest.git
+branch=mm6.0
 
 ./skadoo.sh $name $manifest $branch
 
