@@ -1,5 +1,5 @@
 name=CM
-manifest=github.com/CyanogenMod/android.git
+manifest=https://github.com/CyanogenMod/android.git
 branch=cm-10.2
 
 ./skadoo.sh $name $manifest $branch
