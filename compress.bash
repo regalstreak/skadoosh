@@ -1,4 +1,4 @@
-name=CM
+name=CyanogenMod
 manifest=https://github.com/CyanogenMod/android.git
 branch=cm-10.2
 
