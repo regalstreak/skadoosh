@@ -1,6 +1,6 @@
-name=slim6
-manifest=github.com/SlimRoms/platform_manifest.git
-branch=mm6.0
+name=CM
+manifest=github.com/CyanogenMod/android.git
+branch=cm-10.2
 
 ./skadoo.sh $name $manifest $branch
 
