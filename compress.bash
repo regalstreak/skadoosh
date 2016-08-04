@@ -1,7 +1,7 @@
-name=slim6
+name=ResurrectionRemix-5.7.2
  #https:// is mandatory in manifest link!
-manifest=github.com/SlimRoms/platform_manifest.git
-branch=mm6.0
+manifest=https://github.com/ResurrectionRemix/platform_manifest.git
+branch=marshmallow
 
 ./skadoo.sh $name $manifest $branch
 
