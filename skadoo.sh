@@ -26,6 +26,9 @@ romsync(){
 
     # Sync it up!
     time repo sync -c -f --force-sync --no-clone-bundle --no-tags -j$THREAD_COUNT_SYNC
+
+    # Store the return value
+    Rrs=$?
 }
 
 separatestuff(){
@@ -38,6 +41,9 @@ separatestuff(){
     # Without repo folder
     mkdir $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)
     mv full/* $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)
+
+    # Store the return value
+    Rss=$?
 }
 
 compressstuff(){
@@ -55,6 +61,9 @@ compressstuff(){
 
     # Without repo folder
     time tar -I pxz -cvf $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)/
+
+    # Store the return value
+    Rcs=$?
 }
 
 # Check the starting time
@@ -88,9 +97,15 @@ uploadstuff(){
     # Upload No Repo
     wput $NOREPO ftp://"$USER":"$PASSWD"@"$HOST"/
 
+    # Store the return value
+    Rus=$?
+
 }
 cleanup(){
     cd $DIR;rm -rf $ROMNAME
+
+    # Store the return value
+    Rcu=$?
 }
 
 # Check the finishing time
@@ -100,10 +115,64 @@ echo -e "Ending time:$(echo "$TIME_END / 60" | bc) minutes $(echo "$TIME_END" | 
 # Show total time taken to upoload
 echo -e "Total time elapsed:$(echo "($TIME_END - $TIME_START) / 60" | bc) minutes $(echo "$TIME_END - $TIME_START" | bc) seconds"
 
+
+# Do All The Stuff
+
+doallstuff(){
+# Sync it up
 romsync
+case $Rrs in
+  0) echo "ROM Sync Completed Successfully"
+     ;;
+  *) echo "ROM Sync Failed"
+     exit 1
+     ;;
+esac
+
+# Separate the stuff
 separatestuff
+case $Rss in
+  0) echo "Separating Completed Successfully"
+     ;;
+  *) echo "Separating Failed"
+     exit 1
+     ;;
+esac
+
+# Compress it
 compressstuff
+case $Rcs in
+  0) echo "Compressing Completed Successfully"
+     ;;
+  *) echo "Compressing Failed"
+     exit 1
+     ;;
+esac
+
+# Upload it
 uploadstuff
+case $Rus in
+  0) echo "Uploading Completed Successfully"
+     ;;
+  *) echo "Uploading Failed"
+     exit 1
+     ;;
+esac
+
+# Clean all up
 cleanup
 
-echo "Thank you"
+echo "Thank you for using Skadoosh!"
+
+exit $?
+}
+
+
+# So at last do everything
+doallstuff
+if [ $? -eq 0 ]
+  echo "Everything done!"
+else
+  echo "Something failed :(";
+  exit 1;
+fi
