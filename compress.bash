@@ -1,7 +1,7 @@
-name=ResurrectionRemix-5.7.2
+name=CM
  #https:// is mandatory in manifest link!
-manifest=https://github.com/ResurrectionRemix/platform_manifest.git
-branch=marshmallow
+manifest=https://github.com/CyanogenMod/android.git
+branch=cm-10.2
 
 ./skadoo.sh $name $manifest $branch
 
