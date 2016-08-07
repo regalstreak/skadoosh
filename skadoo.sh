@@ -51,10 +51,14 @@ compressstuff(){
     export XZ_OPT=-9e
 
     # Only repo folder
+    if [ $compressrepo ]; then
     time tar -I pxz -cvf $ROMNAME-$BRANCH-repo-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-repo-$(date +%Y%m%d)/
+    fi
 
     # Without repo folder
+    if [ $compressnorepo ]; then
     time tar -I pxz -cvf $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)/
+    fi
 }
 
 # Check the starting time
