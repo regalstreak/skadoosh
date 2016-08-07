@@ -1,7 +1,7 @@
-name=CM
+name=AICP
  #https:// is mandatory in manifest link!
-manifest=https://github.com/CyanogenMod/android.git
-branch=cm-10.2
+manifest=https://github.com/AICP/platform_manifest.git
+branch=mm6.0
 
 ./skadoo.sh $name $manifest $branch
 
