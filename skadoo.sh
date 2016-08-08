@@ -13,12 +13,6 @@ ROMNAME=$1
 
 # Functions
 installstuff(){
-    # Check if user has curl, if not install it
-    if [ !$( which curl ) ]; then
-      echo "Installing curl"
-      sudo apt install curl
-    fi
-    
     # Check if repo is installed
     if [ !$( which repo ) ]; then
       echo "Installing repo for Downloading the sources"
@@ -43,6 +37,7 @@ installstuff(){
       sudo apt install wput
     fi
 }
+
 romsync(){
     cd $DIR;mkdir -p $ROMNAME/full;cd $ROMNAME/full
 
