@@ -19,11 +19,11 @@ installstuff(){
       sudo apt install curl
     fi
     
-    # Install repo binary
-    mkdir ~/bin
-    export PATH=~/bin:$PATH
-    curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
-    chmod a+x ~/bin/repo
+    # Check if repo is installed
+    if [ !$( which repo ) ]; then
+      echo "Installing repo for Downloading the sources"
+      sudo apt install repo
+    fi
     
     # Check if user has bc, if not install it
     if [ !$( which bc ) ]; then
