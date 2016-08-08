@@ -12,6 +12,37 @@ ROMNAME=$1
 
 
 # Functions
+installstuff(){
+    # Check if user has curl, if not install it
+    if [ !$( which curl ) ]; then
+      echo "Installing curl"
+      sudo apt install curl
+    fi
+    
+    # Install repo binary
+    mkdir ~/bin
+    export PATH=~/bin:$PATH
+    curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+    chmod a+x ~/bin/repo
+    
+    # Check if user has bc, if not install it
+    if [ !$( which bc ) ]; then
+      echo "Installing bc"
+      sudo apt install bc
+    fi
+    
+    # Check if user has pxz, if not install it
+    if [ !$( which pxz ) ]; then
+      echo "Installing pxz for multi-threaded compression"
+      sudo apt install pxz
+    fi
+    
+    # Check if user has wput, if not install it
+    if [ !$( which wput ) ]; then
+      echo "Installing wput for uploading"
+      sudo apt install wput
+    fi
+}
 romsync(){
     cd $DIR;mkdir -p $ROMNAME/full;cd $ROMNAME/full
 
@@ -24,12 +55,6 @@ romsync(){
     THREAD_COUNT_SYNC=$(($CPU_COUNT * 8))
     fi
     
-    # Check if user has bc, if not install it
-    if [ !$( which bc ) ]; then
-      echo "Installing bc"
-      sudo apt install bc
-    fi
-
     # Sync it up!
     time repo sync -c -f --force-sync --no-clone-bundle --no-tags -j$THREAD_COUNT_SYNC
 }
@@ -47,12 +72,6 @@ separatestuff(){
 }
 
 compressstuff(){
-    # Check if user has pxz, if not install it
-    if [ !$( which pxz ) ]; then
-      echo "Installing pxz for multi-threaded compression"
-      sudo apt install pxz
-    fi
-
     cd $DIR/$ROMNAME/
     export XZ_OPT=-9e
 
@@ -84,12 +103,6 @@ uploadstuff(){
     REPO="$ROMNAME-$BRANCH-repo-$(date +%Y%m%d).tar.xz"
     NOREPO="$ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d).tar.xz"
 
-    # Check if user has wput, if not install it
-    if [ !$( which wput ) ]; then
-      echo "Installing wput for uploading"
-      sudo apt install wput
-    fi
-
     cd $DIR/$ROMNAME/
 
     if [ $compressrepo ]; then
@@ -113,6 +126,7 @@ echo -e "Ending time:$(echo "$TIME_END / 60" | bc) minutes $(echo "$TIME_END" | 
 # Show total time taken to upoload
 echo -e "Total time elapsed:$(echo "($TIME_END - $TIME_START) / 60" | bc) minutes $(echo "$TIME_END - $TIME_START" | bc) seconds"
 
+installstuff
 romsync
 separatestuff
 compressstuff
