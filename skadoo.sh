@@ -23,6 +23,12 @@ romsync(){
     # Use 8 times the cpucount
     THREAD_COUNT_SYNC=$(($CPU_COUNT * 8))
     fi
+    
+    # Check if user has bc, if not install it
+    if [ !$( which bc ) ]; then
+      echo "Installing bc"
+      sudo apt install bc
+    fi
 
     # Sync it up!
     time repo sync -c -f --force-sync --no-clone-bundle --no-tags -j$THREAD_COUNT_SYNC
