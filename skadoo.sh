@@ -146,6 +146,9 @@ checkfinishtime(){
 doallstuff(){
     # Start the counter
     checkstarttime
+    
+    # Install stuff
+    installstuff
 
     # Sync it up
     romsync
