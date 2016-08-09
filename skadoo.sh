@@ -202,7 +202,7 @@ doallstuff(){
 
 # So at last do everything
 doallstuff
-if [ $? -eq 0 ]
+if [ $? -eq 0 ]; then
   echo "Everything done!"
 else
   echo "Something failed :(";
