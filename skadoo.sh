@@ -126,7 +126,15 @@ uploadstuff(){
 
 }
 cleanup(){
-    cd $DIR;rm -rf $ROMNAME
+    cd $DIR/$ROMNAME/
+    
+    # Check MD5 if something seems wrong
+    md5sum $REPO > $DIR/$REPO.txt
+    md5sum $NOREPO > $DIR/$NOREPO.txt
+    
+    # Remove the folder
+    cd $DIR
+    rm -rf $ROMNAME
 
     # Store the return value
     Rcu=$?
