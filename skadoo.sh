@@ -41,6 +41,12 @@ installstuff(){
 romsync(){
     cd $DIR;mkdir -p $ROMNAME/full;cd $ROMNAME/full
 
+    # Check if repo is installed
+    if [ !$( which repo ) ]; then
+      echo "Installing repo for Downloading the sources"
+      sudo apt install repo
+    fi
+
     repo init -u $LINK -b $BRANCH
     THREAD_COUNT_SYNC=49
     if [ $(hostname) != 'krieger' ];then
@@ -52,6 +58,9 @@ romsync(){
     
     # Sync it up!
     time repo sync -c -f --force-sync --no-clone-bundle --no-tags -j$THREAD_COUNT_SYNC
+
+    # Store the return value
+    Rrs=$?
 }
 
 separatestuff(){
@@ -64,6 +73,9 @@ separatestuff(){
     # Without repo folder
     mkdir $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)
     mv full/* $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)
+
+    # Store the return value
+    Rss=$?
 }
 
 compressstuff(){
@@ -79,12 +91,24 @@ compressstuff(){
     if [ $compressnorepo ]; then
     time tar -I pxz -cvf $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)/
     fi
+    # Store the return value
+    Rcs=$?
 }
 
-# Check the starting time
-TIME_START=$(date +%s.%N)
-# Show the starting time
-echo -e "Starting time:$(echo "$TIME_START / 60" | bc) minutes $(echo "$TIME_START" | bc) seconds"
+checkstarttime(){
+
+    # Check the starting time
+    TIME_START=$(date +%s.%N)
+
+    # Install bc if not yet installed
+    if [ !$( which bc ) ]; then
+      echo "Installing bc for showing times"
+      sudo apt install bc
+    fi
+
+    # Show the starting time
+    echo -e "Starting time:$(echo "$TIME_START / 60" | bc) minutes $(echo "$TIME_START" | bc) seconds"
+}
 
 uploadstuff(){
     # Definitions
@@ -109,23 +133,87 @@ uploadstuff(){
     wput $NOREPO ftp://"$USER":"$PASSWD"@"$HOST"/
     fi
 
+    # Store the return value
+    Rus=$?
+
 }
 cleanup(){
     cd $DIR;rm -rf $ROMNAME
+
+    # Store the return value
+    Rcu=$?
 }
 
-# Check the finishing time
-TIME_END=$(date +%s.%N)
-# Show the ending time
-echo -e "Ending time:$(echo "$TIME_END / 60" | bc) minutes $(echo "$TIME_END" | bc) seconds"
-# Show total time taken to upoload
-echo -e "Total time elapsed:$(echo "($TIME_END - $TIME_START) / 60" | bc) minutes $(echo "$TIME_END - $TIME_START" | bc) seconds"
+checkfinishtime(){
+    # Check the finishing time
+    TIME_END=$(date +%s.%N)
+    # Show the ending time
+    echo -e "Ending time:$(echo "$TIME_END / 60" | bc) minutes $(echo "$TIME_END" | bc) seconds"
+    # Show total time taken to upoload
+    echo -e "Total time elapsed:$(echo "($TIME_END - $TIME_START) / 60" | bc) minutes $(echo "$TIME_END - $TIME_START" | bc) seconds"
+}
 
-installstuff
-romsync
-separatestuff
-compressstuff
-uploadstuff
-cleanup
+# Do All The Stuff
 
-echo "Thank you"
+doallstuff(){
+    # Start the counter
+    checkstarttime
+
+    # Sync it up
+    romsync
+    case $Rrs in
+      0) echo "ROM Sync Completed Successfully"
+         ;;
+      *) echo "ROM Sync Failed"
+         exit 1
+         ;;
+    esac
+
+    # Separate the stuff
+    separatestuff
+    case $Rss in
+      0) echo "Separating Completed Successfully"
+         ;;
+      *) echo "Separating Failed"
+         exit 1
+         ;;
+    esac
+
+    # Compress it
+    compressstuff
+    case $Rcs in
+      0) echo "Compressing Completed Successfully"
+         ;;
+      *) echo "Compressing Failed"
+         exit 1
+         ;;
+    esac
+
+    # Upload it
+    uploadstuff
+    case $Rus in
+      0) echo "Uploading Completed Successfully"
+         ;;
+      *) echo "Uploading Failed"
+         exit 1
+         ;;
+    esac
+
+    # Clean all up
+    cleanup
+
+    echo "Thank you for using Skadoosh!"
+
+    # End the counter
+    checkfinishtime
+}
+
+
+# So at last do everything
+doallstuff
+if [ $? -eq 0 ]
+  echo "Everything done!"
+else
+  echo "Something failed :(";
+  exit 1;
+fi
