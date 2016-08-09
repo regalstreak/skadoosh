@@ -114,11 +114,11 @@ uploadstuff(){
 
     if [ $compressrepo ]; then
     # Upload Repo Only
-    wput $REPO ftp://"$USER":"$PASSWD"@"$HOST"/"Highly\ Compressed\ Sources/$ROMNAME/"
+    wput $REPO ftp://"$USER":"$PASSWD"@"$HOST"/
     fi
     if [ $compressnorepo ]; then
     # Upload No Repo
-    wput $NOREPO ftp://"$USER":"$PASSWD"@"$HOST"/"Highly\ Compressed\ Sources/$ROMNAME/"
+    wput $NOREPO ftp://"$USER":"$PASSWD"@"$HOST"/
     fi
 
     # Store the return value
