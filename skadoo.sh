@@ -40,13 +40,7 @@ installstuff(){
 
 romsync(){
     cd $DIR;mkdir -p $ROMNAME/full;cd $ROMNAME/full
-
-    # Check if repo is installed
-    if [ !$( which repo ) ]; then
-      echo "Installing repo for Downloading the sources"
-      sudo apt install repo
-    fi
-
+    
     repo init -u $LINK -b $BRANCH
     THREAD_COUNT_SYNC=49
     if [ $(hostname) != 'krieger' ];then
@@ -99,12 +93,6 @@ checkstarttime(){
 
     # Check the starting time
     TIME_START=$(date +%s.%N)
-
-    # Install bc if not yet installed
-    if [ !$( which bc ) ]; then
-      echo "Installing bc for showing times"
-      sudo apt install bc
-    fi
 
     # Show the starting time
     echo -e "Starting time:$(echo "$TIME_START / 60" | bc) minutes $(echo "$TIME_START" | bc) seconds"
