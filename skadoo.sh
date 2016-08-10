@@ -112,13 +112,18 @@ uploadstuff(){
 
     cd $DIR/$ROMNAME/
 
-    if [ $compressrepo ]; then
+    if [ $compressrepo ] || [ -e $REPO ]; then
     # Upload Repo Only
     wput $REPO ftp://"$USER":"$PASSWD"@"$HOST"/
+    else
+    exit 1
     fi
-    if [ $compressnorepo ]; then
+    
+    if [ $compressnorepo ] || [ -e $NOREPO ]; then
     # Upload No Repo
     wput $NOREPO ftp://"$USER":"$PASSWD"@"$HOST"/
+    else
+    exit 1
     fi
 
     # Store the return value
