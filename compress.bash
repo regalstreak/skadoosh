@@ -1,4 +1,4 @@
-name=Omni-4.4
+name=Omniromm
  #https:// is mandatory in manifest link!
 manifest=https://github.com/omnirom/android.git
 branch=android-4.4
