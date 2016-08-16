@@ -14,40 +14,40 @@ ROMNAME=$1
 # Functions
 installstuff(){
     # Check if repo is installed
-    if [ !$( which repo ) ]; then
+    if [ ! "$( which repo )" ]; then
       echo "Installing repo for Downloading the sources"
       sudo apt install repo
     fi
     
     # Check if user has bc, if not install it
-    if [ !$( which bc ) ]; then
+    if [ ! "$( which bc )" ]; then
       echo "Installing bc"
       sudo apt install bc
     fi
     
     # Check if user has pxz, if not install it
-    if [ !$( which pxz ) ]; then
+    if [ ! "$( which pxz )" ]; then
       echo "Installing pxz for multi-threaded compression"
       sudo apt install pxz
     fi
     
     # Check if user has wput, if not install it
-    if [ !$( which wput ) ]; then
+    if [ ! "$( which wput )" ]; then
       echo "Installing wput for uploading"
       sudo apt install wput
     fi
 }
 
 romsync(){
-    cd $DIR;mkdir -p $ROMNAME/full;cd $ROMNAME/full
+    cd "$DIR" || exit; mkdir -p "$ROMNAME/full" || exit; cd "$ROMNAME/full" || exit
     
-    repo init -u $LINK -b $BRANCH
+    repo init -u "$LINK" -b "$BRANCH"
     THREAD_COUNT_SYNC=49
-    if [ $(hostname) != 'krieger' ];then
+    if [ "$(hostname)" != 'krieger' ];then
     # Gather the number of threads
     CPU_COUNT=$(grep -c ^processor /proc/cpuinfo)
     # Use 8 times the cpucount
-    THREAD_COUNT_SYNC=$(($CPU_COUNT * 8))
+    THREAD_COUNT_SYNC=$((CPU_COUNT * 8))
     fi
     
     # Sync it up!
@@ -58,32 +58,32 @@ romsync(){
 }
 
 separatestuff(){
-    cd $DIR/$ROMNAME/
+    cd "$DIR/$ROMNAME/" || exit
 
     # Only repo folder
-    mkdir $ROMNAME-$BRANCH-repo-$(date +%Y%m%d)
-    mv full/.repo $ROMNAME-$BRANCH-repo-$(date +%Y%m%d)
+    mkdir "$ROMNAME-$BRANCH-repo-$(date +%Y%m%d)" 
+    mv "full/.repo" "$ROMNAME-$BRANCH-repo-$(date +%Y%m%d)"
 
     # Without repo folder
-    mkdir $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)
-    mv full/* $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)
+    mkdir "$ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)"
+    mv "full/*" "$ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)"
 
     # Store the return value
     Rss=$?
 }
 
 compressstuff(){
-    cd $DIR/$ROMNAME/
+    cd "$DIR/$ROMNAME/" || exit
     export XZ_OPT=-9e
 
     # Only repo folder
-    if [ $compressrepo ]; then
-    time tar -I pxz -cvf $ROMNAME-$BRANCH-repo-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-repo-$(date +%Y%m%d)/
+    if [ "$compressrepo" ]; then
+    time tar -I pxz -cvf "$ROMNAME-$BRANCH-repo-$(date +%Y%m%d).tar.xz" "$ROMNAME-$BRANCH-repo-$(date +%Y%m%d)/"
     fi
 
     # Without repo folder
-    if [ $compressnorepo ]; then
-    time tar -I pxz -cvf $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)/
+    if [ "$compressnorepo" ]; then
+    time tar -I pxz -cvf "$ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d).tar.xz" "$ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)/"
     fi
     # Store the return value
     Rcs=$?
@@ -101,27 +101,27 @@ checkstarttime(){
 uploadstuff(){
     # Definitions
     HOST="uploads.androidfilehost.com"
-    if [ !$USER ]; then
+    if [ ! "$USER" ]; then
       USER="yourid"
     fi
-    if [ !$PASSWD ]; then
+    if [ ! "$PASSWD" ]; then
       PASSWD="yourpw"
     fi
     REPO="$ROMNAME-$BRANCH-repo-$(date +%Y%m%d).tar.xz"
     NOREPO="$ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d).tar.xz"
 
-    cd $DIR/$ROMNAME/
+    cd "$DIR/$ROMNAME/" || exit
 
-    if [ $compressrepo ] || [ -e $REPO ]; then
+    if [ "$compressrepo" ] || [ -e "$REPO" ]; then
     # Upload Repo Only
-    wput $REPO ftp://"$USER":"$PASSWD"@"$HOST"/
+    wput "$REPO" ftp://"$USER":"$PASSWD"@"$HOST"/
     else
     exit 1
     fi
     
-    if [ $compressnorepo ] || [ -e $NOREPO ]; then
+    if [ "$compressnorepo" ] || [ -e "$NOREPO" ]; then
     # Upload No Repo
-    wput $NOREPO ftp://"$USER":"$PASSWD"@"$HOST"/
+    wput "$NOREPO" ftp://"$USER":"$PASSWD"@"$HOST"/
     else
     exit 1
     fi
@@ -131,15 +131,15 @@ uploadstuff(){
 
 }
 cleanup(){
-    cd $DIR/$ROMNAME/
+    cd "$DIR/$ROMNAME/" || exit
     
     # Check MD5 if something seems wrong
-    md5sum $REPO > $DIR/$REPO.txt
-    md5sum $NOREPO > $DIR/$NOREPO.txt
+    md5sum "$REPO" > "$DIR/$REPO.txt"
+    md5sum "$NOREPO" > "$DIR/$NOREPO.txt"
     
     # Remove the folder
-    cd $DIR
-    rm -rf $ROMNAME
+    cd "$DIR" || exit
+    rm -rf "$ROMNAME"
 
     # Store the return value
     Rcu=$?
@@ -205,6 +205,13 @@ doallstuff(){
 
     # Clean all up
     cleanup
+    case $Rcu in
+      0) echo "Uploading Completed Successfully"
+         ;;
+      *) echo "Uploading Failed"
+         exit 1
+         ;;
+    esac
 
     echo "Thank you for using Skadoosh!"
 
