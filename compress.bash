@@ -1,7 +1,7 @@
-name=LuneOS
+name=AOSP
  #https:// is mandatory in manifest link!
-manifest=https://github.com/webOS-ports/android.git
-branch=wop-11.0
+manifest=https://android.googlesource.com/platform/manifest
+branch=android-4.4.4_r2.0.1
 
 ## comment any of the self explanatory lines if you are only interested in a particular type, default is both.
 export compressrepo=true
