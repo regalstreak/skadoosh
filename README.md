@@ -4,4 +4,10 @@
 
 Warning: Do not upload your own password along with the repo if you modify the project!
 
-Usage ./skadoosh <romname> <manifest link> <branch>
+Usage 
+
+```shell
+export USER=<your-afh-username>
+export PASSWD=<your-afh-password>
+./compress.bash
+```
