@@ -1,7 +1,7 @@
-name=FlareROM
+name=LuneOS
  #https:// is mandatory in manifest link!
-manifest=https://github.com/FlareROM/android.git
-branch=1.0-MM
+manifest=git://github.com/webOS-ports/android.git
+branch=wop-10.1
 
 ## comment any of the self explanatory lines if you are only interested in a particular type, default is both.
 export compressrepo=true
