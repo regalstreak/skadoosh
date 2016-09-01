@@ -13,41 +13,51 @@ ROMNAME=$1
 
 # Functions
 installstuff(){
-    # Check if repo is installed
-    if [ !$( which repo ) ]; then
-      echo "Installing repo for Downloading the sources"
-      sudo apt install repo
+    # VENDOREDIT
+    if [ $HUTIYA != 'nope' ];then
+    
+        # Check if repo is installed
+        if [ !$( which repo ) ]; then
+          echo "Installing repo for Downloading the sources"
+          sudo apt install repo
+        fi
+        
+        # Check if user has bc, if not install it
+        if [ !$( which bc ) ]; then
+          echo "Installing bc"
+          sudo apt install bc
+        fi
+        
+        # Check if user has pxz, if not install it
+        if [ !$( which pxz ) ]; then
+          echo "Installing pxz for multi-threaded compression"
+          sudo apt install pxz
+        fi
+        
+        # Check if user has wput, if not install it
+        if [ !$( which wput ) ]; then
+          echo "Installing wput for uploading"
+          sudo apt install wput
+        fi
+
     fi
     
-    # Check if user has bc, if not install it
-    if [ !$( which bc ) ]; then
-      echo "Installing bc"
-      sudo apt install bc
-    fi
-    
-    # Check if user has pxz, if not install it
-    if [ !$( which pxz ) ]; then
-      echo "Installing pxz for multi-threaded compression"
-      sudo apt install pxz
-    fi
-    
-    # Check if user has wput, if not install it
-    if [ !$( which wput ) ]; then
-      echo "Installing wput for uploading"
-      sudo apt install wput
-    fi
 }
 
 romsync(){
     cd $DIR;mkdir -p $ROMNAME/full;cd $ROMNAME/full
     
     repo init -u $LINK -b $BRANCH
-    THREAD_COUNT_SYNC=49
-    if [ $(hostname) != 'krieger' ];then
-    # Gather the number of threads
-    CPU_COUNT=$(grep -c ^processor /proc/cpuinfo)
-    # Use 8 times the cpucount
-    THREAD_COUNT_SYNC=$(($CPU_COUNT * 8))
+    THREAD_COUNT_SYNC=69
+
+    # VENDOREDIT
+    if [ $(hostname) != 'krieger' || $HUTIYA != 'nope' ];then
+    
+        # Gather the number of threads
+        CPU_COUNT=$(grep -c ^processor /proc/cpuinfo)
+        # Use 8 times the cpucount
+        THREAD_COUNT_SYNC=$(($CPU_COUNT * 8))
+
     fi
     
     # Sync it up!
@@ -100,13 +110,18 @@ checkstarttime(){
 
 uploadstuff(){
     # Definitions
-    HOST="uploads.androidfilehost.com"
+    if [ !$HOST ]; then
+        HOST="yourhost"
+    fi
+    
     if [ !$USER ]; then
       USER="yourid"
     fi
+    
     if [ !$PASSWD ]; then
       PASSWD="yourpw"
     fi
+    
     REPO="$ROMNAME-$BRANCH-repo-$(date +%Y%m%d).tar.xz"
     NOREPO="$ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d).tar.xz"
 
