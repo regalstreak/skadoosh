@@ -17,13 +17,13 @@ name=FlareROM
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/FlareROM/android.git
+manifest=https://android.googlesource.com/platform/manifest
 
 
 # Manifest branch.
 # Example: cm-14.0
 
-branch=1.0-MM
+branch=android-7.0.0_r1
 
 
 ### Compression Configuration ###
@@ -34,7 +34,7 @@ branch=1.0-MM
 # compressrepo
 # If true, will compress the .repo folder.
 
-export compressrepo=true
+export compressrepo=false
 
 
 # compressnorepo
