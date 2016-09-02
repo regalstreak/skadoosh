@@ -7,7 +7,8 @@ Warning: Do not upload your own password along with the repo if you modify the p
 Usage 
 
 ```shell
-export USER=<your-afh-username>
-export PASSWD=<your-afh-password>
+export HOST=<your-ftp-hostname>
+export USER=<your-ftp-username>
+export PASSWD=<your-ftp-password>
 ./compress.bash
 ```

@@ -14,7 +14,7 @@ ROMNAME=$1
 # Functions
 installstuff(){
     # VENDOREDIT
-    if [ $HUTIYA != 'nope' ];then
+    if [ "$HUTIYA" != "nope" ]; then
     
         # Check if repo is installed
         if [ !$( which repo ) ]; then
@@ -45,13 +45,14 @@ installstuff(){
 }
 
 romsync(){
-    cd $DIR;mkdir -p $ROMNAME/full;cd $ROMNAME/full
+    cd $DIR; mkdir -p $ROMNAME/full; cd $ROMNAME/full
     
     repo init -u $LINK -b $BRANCH
+    
     THREAD_COUNT_SYNC=69
 
     # VENDOREDIT
-    if [ $(hostname) != 'krieger' || $HUTIYA != 'nope' ];then
+    if [ $(hostname) != 'krieger' ] || [ "$HUTIYA" != "nope" ]; then
     
         # Gather the number of threads
         CPU_COUNT=$(grep -c ^processor /proc/cpuinfo)
@@ -71,13 +72,17 @@ separatestuff(){
     cd $DIR/$ROMNAME/
 
     # Only repo folder
+    if [ $compressrepo ]; then
     mkdir $ROMNAME-$BRANCH-repo-$(date +%Y%m%d)
     mv full/.repo $ROMNAME-$BRANCH-repo-$(date +%Y%m%d)
+    fi
 
     # Without repo folder
+    if [ $compressnorepo ]; then
     mkdir $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)
     mv full/* $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)
-
+    fi
+    
     # Store the return value
     Rss=$?
 }
@@ -95,6 +100,7 @@ compressstuff(){
     if [ $compressnorepo ]; then
     time tar -I pxz -cvf $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)/
     fi
+  
     # Store the return value
     Rcs=$?
 }
@@ -163,8 +169,10 @@ cleanup(){
 checkfinishtime(){
     # Check the finishing time
     TIME_END=$(date +%s.%N)
+    
     # Show the ending time
     echo -e "Ending time:$(echo "$TIME_END / 60" | bc) minutes $(echo "$TIME_END" | bc) seconds"
+    
     # Show total time taken to upoload
     echo -e "Total time elapsed:$(echo "($TIME_END - $TIME_START) / 60" | bc) minutes $(echo "$TIME_END - $TIME_START" | bc) seconds"
 }
