@@ -11,19 +11,19 @@
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
 
-name=LuneOS
+name=FlareROM
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/webOS-ports/android
+manifest=https://android.googlesource.com/platform/manifest
 
 
 # Manifest branch.
 # Example: cm-14.0
 
-branch=wop-11.0
+branch=android-7.0.0_r1
 
 
 ### Compression Configuration ###
