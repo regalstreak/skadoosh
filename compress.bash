@@ -11,7 +11,7 @@
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
 
-name=FlareROM
+name=AOSP
 
 
 # Manifest link. https:// is mandatory.
