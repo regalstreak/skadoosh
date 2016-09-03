@@ -11,19 +11,19 @@
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
 
-name=AOSB
+name=Exodux
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/AOSB/android/
+manifest=https://github.com/TeamExodus/platform_manifest
 
 
 # Manifest branch.
 # Example: cm-14.0
 
-branch=android-4.4
+branch=EXODUS-6.0
 
 
 ### Compression Configuration ###
