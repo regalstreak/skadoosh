@@ -72,13 +72,13 @@ separatestuff(){
     cd $DIR/$ROMNAME/
 
     # Only repo folder
-    if [ $compressrepo ]; then
+    if [ "$compressrepo" = "true" ]; then
     mkdir $ROMNAME-$BRANCH-repo-$(date +%Y%m%d)
     mv full/.repo $ROMNAME-$BRANCH-repo-$(date +%Y%m%d)
     fi
 
     # Without repo folder
-    if [ $compressnorepo ]; then
+    if [ "$compressnorepo" = "true" ]; then
     mkdir $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)
     mv full/* $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)
     fi
@@ -92,12 +92,12 @@ compressstuff(){
     export XZ_OPT=-9e
 
     # Only repo folder
-    if [ $compressrepo ]; then
+    if [ "$compressrepo" = "true" ]; then
     time tar -I pxz -cvf $ROMNAME-$BRANCH-repo-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-repo-$(date +%Y%m%d)/
     fi
 
     # Without repo folder
-    if [ $compressnorepo ]; then
+    if [ "$compressnorepo" = "true" ]; then
     time tar -I pxz -cvf $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)/
     fi
   
@@ -120,18 +120,21 @@ uploadstuff(){
         echo "Please read the instructions"
         echo "HOST is not set"
         echo "Uploading failed"
+        exit 1
     fi
     
     if [ -z "$USER" ]; then
         echo "Please read the instructions"
         echo "USER is not set"
         echo "Uploading failed"
+        exit 1
     fi
     
     if [ -z "$PASSWD" ]; then
         echo "Please read the instructions"
         echo "PASSWD is not set"
         echo "Uploading failed"
+        exit 1
     fi
     
     REPO="$ROMNAME-$BRANCH-repo-$(date +%Y%m%d).tar.xz"
@@ -139,18 +142,18 @@ uploadstuff(){
 
     cd $DIR/$ROMNAME/
 
-    if [ $compressrepo ] || [ -e $REPO ]; then
+    if [ "$compressrepo" = "true" ] || [ -e $REPO ]; then
     # Upload Repo Only
     wput $REPO ftp://"$USER":"$PASSWD"@"$HOST"/
     else
-    exit 1
+    echo "$REPO does not exist. Not uploading the repo tarball."
     fi
     
-    if [ $compressnorepo ] || [ -e $NOREPO ]; then
+    if [ "$compressnorepo" = "true" ] || [ -e $NOREPO ]; then
     # Upload No Repo
     wput $NOREPO ftp://"$USER":"$PASSWD"@"$HOST"/
     else
-    exit 1
+    echo "$NOREPO does not exist. Not uploading the no-repo tarball."
     fi
 
     # Store the return value
