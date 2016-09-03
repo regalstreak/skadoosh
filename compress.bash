@@ -11,19 +11,19 @@
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
 
-name=LuneOS
+name=AOSB
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/webOS-ports/android
+manifest=https://github.com/AOSB/android/
 
 
 # Manifest branch.
 # Example: cm-14.0
 
-branch=wop-11.0
+branch=android-4.4
 
 
 ### Compression Configuration ###
@@ -34,7 +34,7 @@ branch=wop-11.0
 # compressrepo
 # If true, will compress the .repo folder.
 
-export compressrepo=false
+export compressrepo=true
 
 
 # compressnorepo
