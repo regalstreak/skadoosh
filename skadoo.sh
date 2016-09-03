@@ -49,7 +49,7 @@ romsync(){
     
     repo init -u $LINK -b $BRANCH
     
-    THREAD_COUNT_SYNC=69
+    THREAD_COUNT_SYNC=49
 
     # VENDOREDIT
     if [ $(hostname) != 'krieger' ] || [ "$HUTIYA" != "nope" ]; then
