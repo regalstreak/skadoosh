@@ -11,19 +11,19 @@
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
 
-name=AOSB
+name=TeslaOS
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/AOSB/android
+manifest=https://github.com/teslaos/android
 
 
 # Manifest branch.
 # Example: cm-14.0
 
-branch=android-4.4
+branch=lp5.1
 
 
 ### Compression Configuration ###
