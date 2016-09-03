@@ -116,16 +116,22 @@ checkstarttime(){
 
 uploadstuff(){
     # Definitions
-    if [ !$HOST ]; then
-        HOST="yourhost"
+    if [ -z "$HOST" ]; then
+        echo "Please read the instructions"
+        echo "HOST is not set"
+        echo "Uploading failed"
     fi
     
-    if [ !$USER ]; then
-      USER="yourid"
+    if [ -z "$USER" ]; then
+        echo "Please read the instructions"
+        echo "USER is not set"
+        echo "Uploading failed"
     fi
     
-    if [ !$PASSWD ]; then
-      PASSWD="yourpw"
+    if [ -z "$PASSWD" ]; then
+        echo "Please read the instructions"
+        echo "PASSWD is not set"
+        echo "Uploading failed"
     fi
     
     REPO="$ROMNAME-$BRANCH-repo-$(date +%Y%m%d).tar.xz"
