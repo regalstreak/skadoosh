@@ -17,7 +17,7 @@ name=AOSB
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/AOSB/android/
+manifest=https://github.com/AOSB/android
 
 
 # Manifest branch.
