@@ -11,19 +11,19 @@
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
 
-name=TeslaOS
+name=CyanogenMod
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/teslaos/android
+manifest=https://github.com/CyanogenMod/android
 
 
 # Manifest branch.
 # Example: cm-14.0
 
-branch=lp5.1
+branch=staging/cm-14.0
 
 
 ### Compression Configuration ###
