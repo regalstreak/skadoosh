@@ -11,19 +11,19 @@
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
 
-name=CyanogenMod
+name=AICP
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/CyanogenMod/android
+manifest=https://github.com/AICP/platform_manifest
 
 
 # Manifest branch.
 # Example: cm-14.0
 
-branch=staging/cm-14.0
+branch=n7.0
 
 
 ### Compression Configuration ###
@@ -34,7 +34,7 @@ branch=staging/cm-14.0
 # compressrepo
 # If true, will compress the .repo folder.
 
-export compressrepo=false
+export compressrepo=true
 
 
 # compressnorepo
