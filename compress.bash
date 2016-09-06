@@ -11,19 +11,19 @@
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
 
-name=AICP
+name=MiUi
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/AICP/platform_manifest
+manifest=https://github.com/MiCode/patchrom
 
 
 # Manifest branch.
 # Example: cm-14.0
 
-branch=n7.0
+branch=kitkat
 
 
 ### Compression Configuration ###
@@ -34,7 +34,7 @@ branch=n7.0
 # compressrepo
 # If true, will compress the .repo folder.
 
-export compressrepo=true
+export compressrepo=false
 
 
 # compressnorepo
