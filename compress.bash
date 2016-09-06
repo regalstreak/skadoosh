@@ -11,19 +11,19 @@
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
 
-name=BaiduROM
+name=Beanstalk
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/baidurom/manifest
+manifest=https://github.com/scotthartbti/android
 
 
 # Manifest branch.
 # Example: cm-14.0
 
-branch=coron-4.4
+branch=bs6
 
 
 ### Compression Configuration ###
