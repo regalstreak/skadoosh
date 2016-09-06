@@ -73,14 +73,14 @@ separatestuff(){
 
     # Only repo folder
     if [ "$compressrepo" = "true" ]; then
-    mkdir $ROMNAME-$BRANCH-repo-$(date +%Y%m%d)
-    mv full/.repo $ROMNAME-$BRANCH-repo-$(date +%Y%m%d)
+    mkdir $ROMNAME-${BRANCH////-}-repo-$(date +%Y%m%d)
+    mv full/.repo $ROMNAME-${BRANCH////-}-repo-$(date +%Y%m%d)
     fi
 
     # Without repo folder
     if [ "$compressnorepo" = "true" ]; then
-    mkdir $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)
-    mv full/* $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)
+    mkdir $ROMNAME-${BRANCH////-}-no-repo-$(date +%Y%m%d)
+    mv full/* $ROMNAME-${BRANCH////-}-no-repo-$(date +%Y%m%d)
     fi
     
     # Store the return value
@@ -93,12 +93,12 @@ compressstuff(){
 
     # Only repo folder
     if [ "$compressrepo" = "true" ]; then
-    time tar -I pxz -cvf $ROMNAME-$BRANCH-repo-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-repo-$(date +%Y%m%d)/
+    time tar -I pxz -cvf $ROMNAME-${BRANCH////-}-repo-$(date +%Y%m%d).tar.xz $ROMNAME-${BRANCH////-}-repo-$(date +%Y%m%d)/
     fi
 
     # Without repo folder
     if [ "$compressnorepo" = "true" ]; then
-    time tar -I pxz -cvf $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)/
+    time tar -I pxz -cvf $ROMNAME-${BRANCH////-}-no-repo-$(date +%Y%m%d).tar.xz $ROMNAME-${BRANCH////-}-no-repo-$(date +%Y%m%d)/
     fi
   
     # Store the return value
@@ -137,8 +137,8 @@ uploadstuff(){
         exit 1
     fi
     
-    REPO="$ROMNAME-$BRANCH-repo-$(date +%Y%m%d).tar.xz"
-    NOREPO="$ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d).tar.xz"
+    REPO="$ROMNAME-${BRANCH////-}-repo-$(date +%Y%m%d).tar.xz"
+    NOREPO="$ROMNAME-${BRANCH////-}-no-repo-$(date +%Y%m%d).tar.xz"
 
     cd $DIR/$ROMNAME/
 
