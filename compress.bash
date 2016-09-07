@@ -17,7 +17,7 @@ name=CyanogenMod
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/cyanogenmod/android
+manifest=https://github.com/cyanogenmod/android.git
 
 
 # Manifest branch.
