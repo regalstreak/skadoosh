@@ -17,13 +17,13 @@ name=CyanogenMod
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/cyanogenmod/android.git
+manifest=https://github.com/CyanogenMod/android.git
 
 
 # Manifest branch.
 # Example: cm-14.0
 
-branch=cm-11.0
+branch=staging/cm-14.0
 
 
 ### Compression Configuration ###
@@ -39,7 +39,7 @@ export compressrepo=true
 
 # compressnorepo
 # If true, will compress the stuff except for the .repo folder
-export compressnorepo=true
+export compressnorepo=false
 
 
 ### Finally, execute the stuff. ###
