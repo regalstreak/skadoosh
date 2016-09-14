@@ -11,19 +11,18 @@
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
 
-name=AICP
+name=CyanogenMod
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/FaArIsH/platform_manifest-2.git
-
+manifest=https://github.com/mohammad92/android.git
 
 # Manifest branch.
 # Example: cm-14.0
 
-branch=n7.0
+branch=cm-14.0
 
 
 ### Compression Configuration ###
