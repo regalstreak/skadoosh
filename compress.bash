@@ -17,13 +17,12 @@ name=CyanogenMod
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/CyanogenMod/android.git
-
+manifest=https://github.com/mohammad92/android.git
 
 # Manifest branch.
 # Example: cm-14.0
 
-branch=staging/cm-14.0
+branch=cm-14.0
 
 
 ### Compression Configuration ###
