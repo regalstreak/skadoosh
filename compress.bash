@@ -11,19 +11,19 @@
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
 
-name=AOSP
+name=ColorOS
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://android.googlesource.com/platform/manifest
+manifest=https://github.com/Qiangong2/patchrom/default.xml
 
 
 # Manifest branch.
 # Example: cm-14.0
 
-branch=7.0.0_r6
+branch=jellybean42
 
 
 ### Compression Configuration ###
@@ -39,7 +39,7 @@ export compressrepo=true
 
 # compressnorepo
 # If true, will compress the stuff except for the .repo folder
-export compressnorepo=false
+export compressnorepo=true
 
 
 ### Finally, execute the stuff. ###
