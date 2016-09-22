@@ -34,7 +34,7 @@ branch=jellybean42
 # compressrepo
 # If true, will compress the .repo folder.
 
-export compressrepo=false
+export compressrepo=true
 
 
 # compressnorepo
