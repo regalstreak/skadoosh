@@ -17,7 +17,7 @@ name=ColorOS
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/Qiangong2/patchrom/default.xml
+manifest=https://github.com/Qiangong2/patchrom
 
 
 # Manifest branch.
