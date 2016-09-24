@@ -11,19 +11,19 @@
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
 
-name=ColorOS
+name=Ubuntu Touch
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/Qiangong2/patchrom/default.xml
+manifest=https://code-review.phablet.ubuntu.com/p/aosp/platform/manifest.git
 
 
 # Manifest branch.
 # Example: cm-14.0
 
-branch=jellybean42
+branch=phablet-6.0.0_r1
 
 
 ### Compression Configuration ###
