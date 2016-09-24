@@ -11,7 +11,7 @@
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
 
-name=Ubuntu Touch 6.0.0_r1
+name=UbuntuTouch
 
 
 # Manifest link. https:// is mandatory.
