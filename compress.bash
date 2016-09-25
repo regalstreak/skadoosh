@@ -17,7 +17,7 @@ name=Nitrogen OS
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/nitrogen-project/android_manifest.git -b n
+manifest=https://github.com/nitrogen-project/android_manifest.git
 
 
 # Manifest branch.
