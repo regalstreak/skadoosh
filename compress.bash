@@ -11,19 +11,19 @@
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
 
-name=ColorOS
+name=AOSP-RRO
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/Qiangong2/patchrom/default.xml
+manifest=https://github.com/AOSP-RRO/manifest -b nougat
 
 
 # Manifest branch.
 # Example: cm-14.0
 
-branch=jellybean42
+branch=android-7.0.0_r6
 
 
 ### Compression Configuration ###
