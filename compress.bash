@@ -11,7 +11,7 @@
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
 
-name=Miui8
+name=MIUI
 
 
 # Manifest link. https:// is mandatory.
