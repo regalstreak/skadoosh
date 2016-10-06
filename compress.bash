@@ -11,19 +11,19 @@
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
 
-name=ColorOS
+name=MIUI_8
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/Qiangong2/patchrom/default.xml
+manifest=git://github.com/MiCode/patchrom.git
 
 
 # Manifest branch.
 # Example: cm-14.0
 
-branch=jellybean42
+branch=marshmallow
 
 
 ### Compression Configuration ###
