@@ -11,7 +11,7 @@
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
 
-name=Cyanogenmod14.0
+name=Cyanogenmod
 
 
 # Manifest link. https:// is mandatory.
