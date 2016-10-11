@@ -23,7 +23,7 @@ manifest=https://github.com/CyanogenMod/android
 # Manifest branch.
 # Example: cm-14.0
 
-branch=cm-13.0
+branch=cm-14.0
 
 
 ### Compression Configuration ###
