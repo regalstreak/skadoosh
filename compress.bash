@@ -11,19 +11,19 @@
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
 
-name=Cyanogenmod
+name=UbuntuTouch
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/CyanogenMod/android
+manifest=https://code-review.phablet.ubuntu.com/p/aosp/platform/manifest.git
 
 
 # Manifest branch.
 # Example: cm-14.0
 
-branch=cm-13.0
+branch=phablet-6.0.0_r1
 
 
 ### Compression Configuration ###
