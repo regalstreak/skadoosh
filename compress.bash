@@ -26,22 +26,6 @@ manifest=https://github.com/CyanogenMod/android
 branch=cm-14.0
 
 
-### Compression Configuration ###
-
-# Change the value only if you know what these are.
-# Default is true for both.
-
-# compressrepo
-# If true, will compress the .repo folder.
-
-export compressrepo=true
-
-
-# compressnorepo
-# If true, will compress the stuff except for the .repo folder
-export compressnorepo=true
-
-
 ### Finally, execute the stuff. ###
 
 /bin/bash skadoo.sh $name $manifest $branch
