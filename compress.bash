@@ -11,19 +11,19 @@
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
 
-name=Cyanogenmod
+name=PureNexusProject
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/CyanogenMod/android
+manifest=https://github.com/PureNexusProject/manifest
 
 
 # Manifest branch.
 # Example: cm-14.0
 
-branch=cm-14.0
+branch=n
 
 
 ### Finally, execute the stuff. ###
