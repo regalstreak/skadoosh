@@ -11,19 +11,19 @@
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
 
-name=PureNexusProject
+name=RessurectionRemix
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/PureNexusProject/manifest
+manifest=https://github.com/ResurrectionRemix/ResurrectedScripts
 
 
 # Manifest branch.
 # Example: cm-14.0
 
-branch=n
+branch=m
 
 
 ### Compression Configuration ###
