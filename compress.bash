@@ -11,19 +11,19 @@
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
 
-name=PureNexusProject
+name=MIUI8Marshmallow
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/PureNexusProject/manifest
+manifest=https://github.com/MiCode/patchrom
 
 
 # Manifest branch.
 # Example: cm-14.0
 
-branch=n
+branch=marshmallow
 
 
 ### Compression Configuration ###
