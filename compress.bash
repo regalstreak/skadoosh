@@ -33,7 +33,7 @@ branch=android-7.1.0_r7
 # compressrepo
 # If true, will compress the .repo folder.
 
-export compressrepo=true
+export compressrepo=false
 
 
 # compressnorepo
