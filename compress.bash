@@ -11,19 +11,18 @@
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
 
-name=PureNexusProject
-
+name=AOSP
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/PureNexusProject/manifest
+manifest=https://android.googlesource.com/platform/manifest
 
 
 # Manifest branch.
 # Example: cm-14.0
 
-branch=n
+branch=android-7.1.0_r7
 
 
 ### Compression Configuration ###
