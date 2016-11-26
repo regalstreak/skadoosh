@@ -44,7 +44,7 @@ installstuff(){
     
 }
 
-romsync(){
+romsyncdeep(){
     cd $DIR; mkdir -p $ROMNAME/full; cd $ROMNAME/full
     
     repo init -u $LINK -b $BRANCH
@@ -65,42 +65,58 @@ romsync(){
     time repo sync -c -f --force-sync --no-clone-bundle --no-tags -j$THREAD_COUNT_SYNC
 
     # Store the return value
-    Rrs=$?
+    Rrsd=$?
 }
 
-separatestuff(){
-    cd $DIR/$ROMNAME/
 
-    # Only repo folder
-    if [ "$compressrepo" = "true" ]; then
-    mkdir $ROMNAME-$BRANCH-repo-$(date +%Y%m%d)
-    mv full/.repo $ROMNAME-$BRANCH-repo-$(date +%Y%m%d)
-    fi
+romsyncshallow(){
+    cd $DIR; mkdir -p $ROMNAME/full; cd $ROMNAME/full
+    
+    repo init -u $LINK -b $BRANCH --depth=1
+    
+    THREAD_COUNT_SYNC=49
 
-    # Without repo folder
-    if [ "$compressnorepo" = "true" ]; then
-    mkdir $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)
-    mv full/* $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)
+    # VENDOREDIT
+    if [ $(hostname) != 'krieger' ] || [ "$HUTIYA" != "nope" ]; then
+    
+        # Gather the number of threads
+        CPU_COUNT=$(grep -c ^processor /proc/cpuinfo)
+        # Use 8 times the cpucount
+        THREAD_COUNT_SYNC=$(($CPU_COUNT * 8))
+
     fi
     
+    # Sync it up!
+    time repo sync -c -f --force-sync --no-clone-bundle --no-tags -j$THREAD_COUNT_SYNC
+
     # Store the return value
-    Rss=$?
+    Rrss=$?
+}
+
+setupdeep(){
+	cd $DIR/$ROMNAME/full
+	rm -rf *
+	cd ../
+	mv full $ROMNAME-$BRANCH-repo-deep-$(date +%Y%m%d)
+
+	Rsd=$?
+}
+
+setupshallow(){
+	cd $DIR/$ROMNAME/full
+	rm -rf *
+	cd ../
+	mv full $ROMNAME-$BRANCH-repo-shallow-$(date +%Y%m%d)
 }
 
 compressstuff(){
     cd $DIR/$ROMNAME/
     export XZ_OPT=-9e
 
-    # Only repo folder
-    if [ "$compressrepo" = "true" ]; then
-    time tar -I pxz -cvf $ROMNAME-$BRANCH-repo-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-repo-$(date +%Y%m%d)/
-    fi
-
-    # Without repo folder
-    if [ "$compressnorepo" = "true" ]; then
-    time tar -I pxz -cvf $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d)/
-    fi
-  
+    time tar -I pxz -cvf $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d)/
+    
+    time tar -I pxz -cvf $ROMNAME-$BRANCH-deep-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-deep-$(date +%Y%m%d)/
+    
     # Store the return value
     Rcs=$?
 }
@@ -137,8 +153,8 @@ uploadstuff(){
         exit 1
     fi
     
-    REPO="$ROMNAME-$BRANCH-repo-$(date +%Y%m%d).tar.xz"
-    NOREPO="$ROMNAME-$BRANCH-no-repo-$(date +%Y%m%d).tar.xz"
+    REPO="$ROMNAME-$BRANCH-deep-$(date +%Y%m%d).tar.xz"
+    NOREPO="$ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).tar.xz"
 
     cd $DIR/$ROMNAME/
 
@@ -146,14 +162,14 @@ uploadstuff(){
     # Upload Repo Only
     wput $REPO ftp://"$USER":"$PASSWD"@"$HOST"/
     else
-    echo "$REPO does not exist. Not uploading the repo tarball."
+    echo "$REPO does not exist. Not uploading the deep tarball."
     fi
     
     if [ "$compressnorepo" = "true" ] || [ -e $NOREPO ]; then
     # Upload No Repo
     wput $NOREPO ftp://"$USER":"$PASSWD"@"$HOST"/
     else
-    echo "$NOREPO does not exist. Not uploading the no-repo tarball."
+    echo "$NOREPO does not exist. Not uploading the shallow tarball."
     fi
 
     # Store the return value
@@ -189,24 +205,12 @@ checkfinishtime(){
 # Do All The Stuff
 
 doallstuff(){
-    # Start the counter
     checkstarttime
-    
-    # Install stuff
     installstuff
-
-    # Sync it up
-    romsync
-    case $Rrs in
-      0) echo "ROM Sync Completed Successfully"
-         ;;
-      *) echo "ROM Sync Failed"
-         exit 1
-         ;;
-    esac
-
-    ### Check branchname for slashes. ###
-    
+    romsyncdeep
+    setupdeep
+    romsyncshallow
+    setupshallow
     branchtest=$(echo $branch | tr / -)
     if [ "$branch" = "$branchtest" ]; then
       echo ""
@@ -214,43 +218,12 @@ doallstuff(){
       unset $branch 2>/dev/null
       branch=$branchtest
     fi
-
-    # Separate the stuff
-    separatestuff
-    case $Rss in
-      0) echo "Separating Completed Successfully"
-         ;;
-      *) echo "Separating Failed"
-         exit 1
-         ;;
-    esac
-
-    # Compress it
     compressstuff
-    case $Rcs in
-      0) echo "Compressing Completed Successfully"
-         ;;
-      *) echo "Compressing Failed"
-         exit 1
-         ;;
-    esac
-
-    # Upload it
     uploadstuff
-    case $Rus in
-      0) echo "Uploading Completed Successfully"
-         ;;
-      *) echo "Uploading Failed"
-         exit 1
-         ;;
-    esac
-
-    # Clean all up
     cleanup
 
     echo "Thank you for using Skadoosh!"
 
-    # End the counter
     checkfinishtime
 }
 
