@@ -17,29 +17,12 @@ name=RessurectionRemix
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/ResurrectionRemix/ResurrectedScripts
-
+manifest=https://github.com/ResurrectionRemix/platform_manifest
 
 # Manifest branch.
 # Example: cm-14.0
 
-branch=m
-
-
-### Compression Configuration ###
-
-# Change the value only if you know what these are.
-# Default is true for both.
-
-# compressrepo
-# If true, will compress the .repo folder.
-
-export compressrepo=true
-
-
-# compressnorepo
-# If true, will compress the stuff except for the .repo folder
-export compressnorepo=true
+branch=marshmallow
 
 
 ### Finally, execute the stuff. ###
