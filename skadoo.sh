@@ -68,7 +68,7 @@ checkfinishtime(){
 doshallow(){
     cd $DIR; mkdir -p $ROMNAME/shallow; cd $ROMNAME/shallow
 
-    repo init -u $LINK -b $BRANCH --depth 1
+    repo init -u $LINK -b $BRANCH --depth 1 --reference $DIR/$ROMNAME/full/
 
     THREAD_COUNT_SYNC=49
 
@@ -90,7 +90,6 @@ doshallow(){
 
     mkdir $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d)
     mv shallow/.repo $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d)
-    rm -rf shallow
     cd $DIR/$ROMNAME/
     export XZ_OPT=-9e
     time tar -I pxz -cvf $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d)/
@@ -152,7 +151,6 @@ dofull(){
 
     mkdir $ROMNAME-$BRANCH-full-$(date +%Y%m%d)
     mv shallow/.repo $ROMNAME-$BRANCH-full-$(date +%Y%m%d)
-    rm -rf full
     cd $DIR/$ROMNAME/
     export XZ_OPT=-9e
     time tar -I pxz -cvf $ROMNAME-$BRANCH-full-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-full-$(date +%Y%m%d)/
@@ -199,11 +197,11 @@ doallstuff(){
     # Install stuff
     installstuff
 
-    # Compress shallow
-    doshallow
-
     # Compress full
     dofull
+
+    # Compress shallow
+    doshallow
 
     checkfinishtime
 }
@@ -213,6 +211,7 @@ doallstuff(){
 doallstuff
 if [ $? -eq 0 ]; then
   echo "Everything done!"
+  rm -rf $DIR/$ROMNAME
 else
   echo "Something failed :(";
   return 1;
