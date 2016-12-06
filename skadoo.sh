@@ -98,21 +98,21 @@ doshallow(){
         echo "Please read the instructions"
         echo "HOST is not set"
         echo "Uploading failed"
-        return 1
+        exit 1
     fi
 
     if [ -z "$USER" ]; then
         echo "Please read the instructions"
         echo "USER is not set"
         echo "Uploading failed"
-        return 1
+        exit 1
     fi
 
     if [ -z "$PASSWD" ]; then
         echo "Please read the instructions"
         echo "PASSWD is not set"
         echo "Uploading failed"
-        return 1
+        exit 1
     fi
 
     SHALLOW="$ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).tar.xz"
@@ -159,21 +159,21 @@ dofull(){
         echo "Please read the instructions"
         echo "HOST is not set"
         echo "Uploading failed"
-        return 1
+        exit 1
     fi
 
     if [ -z "$USER" ]; then
         echo "Please read the instructions"
         echo "USER is not set"
         echo "Uploading failed"
-        return 1
+        exit 1
     fi
 
     if [ -z "$PASSWD" ]; then
         echo "Please read the instructions"
         echo "PASSWD is not set"
         echo "Uploading failed"
-        return 1
+        exit 1
     fi
 
     FULL="$ROMNAME-$BRANCH-full-$(date +%Y%m%d).tar.xz"
@@ -214,5 +214,5 @@ if [ $? -eq 0 ]; then
   rm -rf $DIR/$ROMNAME
 else
   echo "Something failed :(";
-  return 1;
+  exit 1;
 fi
