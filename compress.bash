@@ -11,19 +11,13 @@
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
 
-name=ResurrectionRemix
-
-
+name=AOKP
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/ResurrectionRemix/platform_manifest
-
-
+manifest=https://github.com/AOKP/platform_manifest
 # Manifest branch.
 # Example: cm-14.0
 
-branch=nougat
-
-
+branch=mm
 /bin/bash skadoo.sh $name $manifest $branch
