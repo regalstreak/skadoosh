@@ -1,4 +1,4 @@
-# Skadoosh
+# Skadoosh [![Build Status](http://jenkins.msfjarvis.me/job/skadoosh/badge/icon)](http://jenkins.msfjarvis.me/job/skadoosh/)
 ## A project for your internet speed concerns.
 
 All information available on the [XDA thread](http://forum.xda-developers.com/android/software/sources-android-sources-highly-t3231109) of the source index.
