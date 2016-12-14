@@ -11,20 +11,18 @@
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
 
-
-name=ResurrectionRemix
+name=MIUI8Marshmallow
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/ResurrectionRemix/platform_manifest
+manifest=https://github.com/MiCode/patchrom
 
 # Manifest branch.
 # Example: cm-14.0
 
 branch=marshmallow
-
 
 ### Finally, execute the stuff. ###
 
