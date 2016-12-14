@@ -11,18 +11,18 @@
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
 
-name=SlimRoms
+name=AOSP
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/SlimRoms/platform_manifest
+manifest=https://android.googlesource.com/platform/manifest
 
 # Manifest branch.
 # Example: cm-14.0
 
-branch=ng7.0
+branch=android-7.1.1_r6
 
 ### Finally, execute the stuff. ###
 
