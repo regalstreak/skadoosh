@@ -11,19 +11,18 @@
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
 
-
-name=ResurrectionRemix
+name=DirtyUnicorns
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/ResurrectionRemix/platform_manifest
+manifest=http://github.com/DirtyUnicorns/android_manifest
 
 # Manifest branch.
 # Example: cm-14.0
 
-branch=marshmallow
+branch=m
 
 
 ### Finally, execute the stuff. ###
