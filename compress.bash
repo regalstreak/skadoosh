@@ -11,18 +11,18 @@
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
 
-name=SlimRoms
+name=XOS
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
 
-manifest=https://github.com/SlimRoms/platform_manifest
+manifest=https://github.com/halogenOS/android_manifest
 
 # Manifest branch.
 # Example: cm-14.0
 
-branch=ng7.0
+branch=XOS-7.0
 
 ### Finally, execute the stuff. ###
 
