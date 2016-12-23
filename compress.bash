@@ -10,19 +10,17 @@
 
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
-
-name=DirtyUnicorns
+name=ZephyrOS
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-
-manifest=https://github.com/DirtyUnicorns/android_manifest
+manifest=https://github.com/Zephyr-OS/manifest
 
 # Manifest branch.
 # Example: cm-14.0
 
-branch=n7x
+branch=zephyr-N
 
 ### Finally, execute the stuff. ###
 
