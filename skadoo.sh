@@ -108,11 +108,6 @@ doshallow(){
 
     cd $DIR/$ROMNAME/
 
-    if [ -e $SHALLOW ]; then
-    wput $SHALLOW ftp://"$USER":"$PASSWD"@"$HOST"/
-    else
-    echo "$SHALLOW does not exist. Not uploading the shallow tarball."
-    fi
 }
 
 dofull(){
@@ -189,6 +184,9 @@ doallstuff(){
 
     # Compress shallow
     doshallow
+
+    # Upload that shit
+    upload
 
     checkfinishtime
 }
