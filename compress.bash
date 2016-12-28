@@ -10,18 +10,18 @@
 
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
-name=ZephyrOS
+name=AOSP
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://github.com/Zephyr-OS/manifest
+manifest=https://android.googlesource.com/platform/manifest
+
 
 # Manifest branch.
 # Example: cm-14.0
+branch=android-4.4.4_r2.0.1
 
-branch=zephyr-N
 
 ### Finally, execute the stuff. ###
-
 /bin/bash skadoo.sh $name $manifest $branch
