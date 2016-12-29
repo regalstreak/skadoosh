@@ -15,16 +15,12 @@ name=AOSP
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-
-
 manifest=https://android.googlesource.com/platform/manifest
 
 
 # Manifest branch.
 # Example: cm-14.0
-
 branch=android-7.1.1_r6
 
 ### Finally, execute the stuff. ###
-
 /bin/bash skadoo.sh $name $manifest $branch
