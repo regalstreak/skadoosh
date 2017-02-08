@@ -10,17 +10,17 @@
 
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
-name=AOSP
+name=MIUI
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://android.googlesource.com/platform/manifest
+manifest=https://github.com/MiCode/patchrom
 
 
 # Manifest branch.
 # Example: cm-14.0
-branch=android-4.4.4_r2.0.1
+branch=marshmallow
 
 
 ### Finally, execute the stuff. ###
