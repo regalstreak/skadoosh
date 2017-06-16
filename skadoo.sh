@@ -90,9 +90,9 @@ doshallow(){
         exit 1
     fi
 
-    if [ -z "$USER" ]; then
+    if [ -z "$SKAUSER" ]; then
         echo "Please read the instructions"
-        echo "USER is not set"
+        echo "SKAUSER is not set"
         echo "Uploading failed"
         exit 1
     fi
@@ -136,9 +136,9 @@ dofull(){
         exit 1
     fi
 
-    if [ -z "$USER" ]; then
+    if [ -z "$SKAUSER" ]; then
         echo "Please read the instructions"
-        echo "USER is not set"
+        echo "SKAUSER is not set"
         echo "Uploading failed"
         exit 1
     fi
@@ -158,13 +158,13 @@ dofull(){
 
 upload(){
   if [ -e $FULL ]; then
-    wput $FULL ftp://"$USER":"$PASSWD"@"$HOST"/
+    wput $FULL ftp://"$SKAUSER":"$PASSWD"@"$HOST"/
   else
     echo "$FULL does not exist. Not uploading the shallow tarball."
   fi
 
   if [ -e $SHALLOW ]; then
-  wput $SHALLOW ftp://"$USER":"$PASSWD"@"$HOST"/
+  wput $SHALLOW ftp://"$SKAUSER":"$PASSWD"@"$HOST"/
   else
   echo "$SHALLOW does not exist. Not uploading the shallow tarball."
   fi
