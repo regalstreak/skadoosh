@@ -69,7 +69,7 @@ doshallow(){
 
     repo init -u $LINK -b $BRANCH --depth 1 -q --reference $DIR/$ROMNAME/full/
 
-    THREAD_COUNT_SYNC=8
+    THREAD_COUNT_SYNC=32
 
     # Sync it up!
     time repo sync -c -f --force-sync --no-clone-bundle --no-tags -j$THREAD_COUNT_SYNC
@@ -115,7 +115,7 @@ dofull(){
 
     repo init -u $LINK -b $BRANCH
 
-    THREAD_COUNT_SYNC=8
+    THREAD_COUNT_SYNC=32
 
     # Sync it up!
     time repo sync -c -f --force-sync -q --no-clone-bundle --no-tags -j$THREAD_COUNT_SYNC
