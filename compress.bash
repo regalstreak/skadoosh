@@ -10,17 +10,17 @@
 
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
-name=AOSP
+name=halogenOS
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://android.googlesource.com/platform/manifest
+manifest=https://github.com/halogenOS/android_manifest
 
 
 # Manifest branch.
 # Example: cm-14.0
-branch=android-4.4.4_r2.0.1
+branch=XOS-7.1
 
 
 ### Finally, execute the stuff. ###
