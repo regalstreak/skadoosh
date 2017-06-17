@@ -158,12 +158,14 @@ dofull(){
 
 upload(){
   if [ -e $FULL ]; then
+    cp $FULL ../../../
     wput $FULL ftp://"$SKAUSER":"$PASSWD"@"$HOST"/
   else
     echo "$FULL does not exist. Not uploading the shallow tarball."
   fi
 
   if [ -e $SHALLOW ]; then
+  cp $SHALLOW ../../../
   wput $SHALLOW ftp://"$SKAUSER":"$PASSWD"@"$HOST"/
   else
   echo "$SHALLOW does not exist. Not uploading the shallow tarball."

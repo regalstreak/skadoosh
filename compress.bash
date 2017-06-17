@@ -15,7 +15,7 @@ name=halogenOS
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://github.com/halogenOS/android_manifest
+manifest=https://github.com/halogenOS/android_manifest.git
 
 
 # Manifest branch.
