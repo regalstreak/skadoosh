@@ -23,5 +23,16 @@ manifest=https://github.com/halogenOS/android_manifest.git
 branch=XOS-7.1
 
 
+name=RR
+manifest=https://github.com/ResurrectionRemix/platform_manifest.git
+branch=nougat
+
+./skadoo.sh $name $manifest $branch
+
+
 ### Finally, execute the stuff. ###
 /bin/bash skadoo.sh $name $manifest $branch
+
+
+
+
