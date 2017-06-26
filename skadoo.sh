@@ -65,6 +65,9 @@ checkfinishtime(){
 
 
 doshallow(){
+
+    echo -e "SHALLOW | Starting to sync."
+
     cd $DIR; mkdir -p $ROMNAME/shallow; cd $ROMNAME/shallow
 
     repo init -u $LINK -b $BRANCH --depth 1 -q --reference $DIR/$ROMNAME/full/
@@ -74,6 +77,8 @@ doshallow(){
     # Sync it up!
     time repo sync -c -f --force-sync --no-clone-bundle --no-tags -j$THREAD_COUNT_SYNC
 
+    echo -e "SHALLOW | Syncing done. Moving and compressing."
+
     cd $DIR/$ROMNAME/
 
     mkdir $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d)
@@ -81,7 +86,10 @@ doshallow(){
     cd $DIR/$ROMNAME/
     mkdir shallowparts
     export XZ_OPT=-9e
-    time tar -I pxz -cvf - $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d)/ | split -b 4800M - shallowparts/$ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).tar.xz.
+    time tar -I pxz -cf - $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d)/ | split -b 4800M - shallowparts/$ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).tar.xz.
+
+    echo -e "SHALLOW | Compressing done. Taking md5sums."
+
     md5sum shallowparts/* > $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).parts.md5sum
 
     SHALLOW="shallowparts/$ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).tar.xz.*"
@@ -89,9 +97,14 @@ doshallow(){
 
     cd $DIR/$ROMNAME/
 
+    echo -e "SHALLOW | Done."
+
 }
 
 dofull(){
+
+    echo -e "FULL | Starting to sync."
+
     cd $DIR; mkdir -p $ROMNAME/full; cd $ROMNAME/full
 
     repo init -u $LINK -b $BRANCH
@@ -101,6 +114,7 @@ dofull(){
     # Sync it up!
     time repo sync -c -f --force-sync -q --no-clone-bundle --no-tags -j$THREAD_COUNT_SYNC
 
+    echo -e "FULL | Syncing done. Moving and compressing."
 
     cd $DIR/$ROMNAME/
 
@@ -109,7 +123,10 @@ dofull(){
     cd $DIR/$ROMNAME/
     mkdir fullparts
     export XZ_OPT=-9e
-    time tar -I pxz -cvf - $ROMNAME-$BRANCH-full-$(date +%Y%m%d)/ | split -b 4800M - fullparts/$ROMNAME-$BRANCH-full-$(date +%Y%m%d).tar.xz.
+    time tar -I pxz -cf - $ROMNAME-$BRANCH-full-$(date +%Y%m%d)/ | split -b 4800M - fullparts/$ROMNAME-$BRANCH-full-$(date +%Y%m%d).tar.xz.
+
+    echo -e "FULL | Compressing done. Taking md5sums."
+
     md5sum fullparts/* > $ROMNAME-$BRANCH-full-$(date +%Y%m%d).parts.md5sum
 
     FULL="fullparts/$ROMNAME-$BRANCH-full-$(date +%Y%m%d).tar.xz.*"
@@ -117,10 +134,14 @@ dofull(){
 
     cd $DIR/$ROMNAME/
 
+    echo -e "FULL | Done."
+
 }
 
 sort(){
-    
+
+    echo -e "Begin to sort."
+
     cd $DIR/$ROMNAME
     mkdir upload
     cd upload
@@ -128,17 +149,24 @@ sort(){
     cd $ROMNAME/$BRANCH
     mkdir shallow
     mkdir full
-    mv $FULL full
-    mv $SHALLOW shallow
-    mv $FULLMD5 full
-    mv $SHALLOWMD5 shallow
-    
+    cd $DIR/$ROMNAME
+    mv $FULL upload/$ROMNAME/$BRANCH/full
+    mv $SHALLOW upload/$ROMNAME/$BRANCH/shallow
+    mv $FULLMD5 upload/$ROMNAME/$BRANCH/full
+    mv $SHALLOWMD5 upload/$ROMNAME/$BRANCH/full
+
+    echo -e "Done sorting."
+
 }
 
 upload(){
-    
+
+    echo -e "Begin to upload."
+
     cd $DIR/$ROMNAME/upload
     rsync -avPh --relative -e ssh $ROMNAME regalstreak@frs.sourceforge.net:/home/frs/project/skadoosh/
+
+    echo -e "Done uploading."
 
 }
 # Do All The Stuff
@@ -170,9 +198,9 @@ doallstuff(){
 doallstuff
 if [ $? -eq 0 ]; then
   echo "Everything done!"
-  rm -rf $DIR/$ROMNAME
+#  rm -rf $DIR/$ROMNAME
 else
   echo "Something failed :(";
-  rm -rf $DIR/$ROMNAME/shallow $DIR/$ROMNAME/full $DIR/$ROMNAME/shallowparts $DIR/$ROMNAME/fullparts $DIR/$ROMNAME/$SHALLOWMD5 $DIR/$ROMNAME/$FULLMD5 $DIR/$ROMNAME/upload
+#  rm -rf $DIR/$ROMNAME/shallow $DIR/$ROMNAME/full $DIR/$ROMNAME/shallowparts $DIR/$ROMNAME/fullparts $DIR/$ROMNAME/$SHALLOWMD5 $DIR/$ROMNAME/$FULLMD5 $DIR/$ROMNAME/upload
   exit 1;
 fi
