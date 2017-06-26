@@ -75,7 +75,7 @@ doshallow(){
     THREAD_COUNT_SYNC=32
 
     # Sync it up!
-    time repo sync -c -f --force-sync --no-clone-bundle --no-tags -j$THREAD_COUNT_SYNC
+    time repo sync -c -f -q --force-sync --no-clone-bundle --no-tags -j$THREAD_COUNT_SYNC
 
     echo -e "SHALLOW | Syncing done. Moving and compressing."
 
