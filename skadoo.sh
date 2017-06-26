@@ -133,7 +133,7 @@ dofull(){
     export XZ_OPT=-9e
     time tar -I pxz -cvf - $ROMNAME-$BRANCH-full-$(date +%Y%m%d)/ | split -b 4800M - fullparts/$ROMNAME-$BRANCH-full-$(date +%Y%m%d).tar.xz.
 
-    FULL="fullparts/$ROMNAME-$BRANCH-full-$(date +%Y%m%d).tar.xz.*wput ssh"
+    FULL="fullparts/$ROMNAME-$BRANCH-full-$(date +%Y%m%d).tar.xz.*"
 
     cd $DIR/$ROMNAME/
 
