@@ -43,30 +43,6 @@ installstuff(){
 
 }
 
-checkdefinitions(){
-    # Definitions
-    if [ -z "$HOST" ]; then
-        echo "Please read the instructions"
-        echo "HOST is not set"
-        echo "Uploading failed"
-        exit 1
-    fi
-
-    if [ -z "$SKAUSER" ]; then
-        echo "Please read the instructions"
-        echo "SKAUSER is not set"
-        echo "Uploading failed"
-        exit 1
-    fi
-
-    if [ -z "$PASSWD" ]; then
-        echo "Please read the instructions"
-        echo "PASSWD is not set"
-        echo "Uploading failed"
-        exit 1
-    fi
-}
-
 checkstarttime(){
 
     # Check the starting time
@@ -109,7 +85,7 @@ doshallow(){
     md5sum shallowparts/* > $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).parts.md5sum
 
     SHALLOW="shallowparts/$ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).tar.xz.*"
-    SHALLLOWMD5="$ROMNAME-$BRANCH-shallow-$(date +%Y%m%d.parts.md5sum"
+    SHALLOWMD5="$ROMNAME-$BRANCH-shallow-$(date +%Y%m%d.parts.md5sum"
 
     cd $DIR/$ROMNAME/
 
@@ -143,23 +119,26 @@ dofull(){
 
 }
 
+sort(){
+    
+    cd $DIR/$ROMNAME
+    mkdir upload
+    cd upload
+    mkdir -p $ROMNAME/$BRANCH
+    cd $ROMNAME/$BRANCH
+    mkdir shallow
+    mkdir full
+    mv $FULL full
+    mv $SHALLOW shallow
+    mv $FULLMD5 full
+    mv $SHALLOWMD5 shallow
+    
+}
+
 upload(){
     
-    checkdefinitions
-
-    if [ -e $FULL ]; then
-        wput $FULL ftp://"$SKAUSER":"$PASSWD"@"$HOST"/
-        wput $FULLMD5 ftp://"$SKAUSER":"$PASSWD"@"$HOST"/
-    else
-        echo "$FULL does not exist. Not uploading the shallow tarball."
-    fi
-
-    if [ -e $SHALLOW ]; then
-        wput $SHALLOW ftp://"$SKAUSER":"$PASSWD"@"$HOST"/
-        wput $SHALLOWMD5 ftp://"$SKAUSER":"$PASSWD"@"$HOST"/
-    else
-        echo "$SHALLOW does not exist. Not uploading the shallow tarball."
-    fi
+    cd $DIR/$ROMNAME/upload
+    rsync -avPh --relative -e ssh $ROMNAME regalstreak@frs.sourceforge.net:/home/frs/project/skadoosh/
 
 }
 # Do All The Stuff
@@ -177,6 +156,9 @@ doallstuff(){
     # Compress shallow
     doshallow
 
+    # Sort out all for scp upload
+    sort
+
     # Upload that shit
     upload
 
@@ -191,6 +173,6 @@ if [ $? -eq 0 ]; then
   rm -rf $DIR/$ROMNAME
 else
   echo "Something failed :(";
-  rm -rf $DIR/$ROMNAME/shallow $DIR/$ROMNAME/full $DIR/$ROMNAME/shallowparts $DIR/$ROMNAME/fullparts $DIR/$ROMNAME/$SHALLLOWMD5 $DIR/$ROMNAME/$FULLMD5
+  rm -rf $DIR/$ROMNAME/shallow $DIR/$ROMNAME/full $DIR/$ROMNAME/shallowparts $DIR/$ROMNAME/fullparts $DIR/$ROMNAME/$SHALLOWMD5 $DIR/$ROMNAME/$FULLMD5 $DIR/$ROMNAME/upload
   exit 1;
 fi
