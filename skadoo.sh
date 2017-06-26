@@ -85,7 +85,7 @@ doshallow(){
     md5sum shallowparts/* > $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).parts.md5sum
 
     SHALLOW="shallowparts/$ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).tar.xz.*"
-    SHALLOWMD5="$ROMNAME-$BRANCH-shallow-$(date +%Y%m%d.parts.md5sum"
+    SHALLOWMD5="$ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).parts.md5sum"
 
     cd $DIR/$ROMNAME/
 
