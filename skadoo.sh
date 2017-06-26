@@ -88,12 +88,7 @@ doshallow(){
     export XZ_OPT=-9e
     time tar -I pxz -cf - $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d)/ | split -b 4500M - shallowparts/$ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).tar.xz.
 
-    echo -e "SHALLOW | Compressing done. Taking md5sums."
-
-    md5sum shallowparts/* > $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).parts.md5sum
-
     SHALLOW="shallowparts/$ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).tar.xz.*"
-    SHALLOWMD5="$ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).parts.md5sum"
 
     cd $DIR/$ROMNAME/
 
@@ -125,12 +120,7 @@ dofull(){
     export XZ_OPT=-9e
     time tar -I pxz -cf - $ROMNAME-$BRANCH-full-$(date +%Y%m%d)/ | split -b 4500M - fullparts/$ROMNAME-$BRANCH-full-$(date +%Y%m%d).tar.xz.
 
-    echo -e "FULL | Compressing done. Taking md5sums."
-
-    md5sum fullparts/* > $ROMNAME-$BRANCH-full-$(date +%Y%m%d).parts.md5sum
-
     FULL="fullparts/$ROMNAME-$BRANCH-full-$(date +%Y%m%d).tar.xz.*"
-    FULLMD5="$ROMNAME-$BRANCH-full-$(date +%Y%m%d).parts.md5sum"
 
     cd $DIR/$ROMNAME/
 
@@ -152,10 +142,18 @@ sort(){
     cd $DIR/$ROMNAME
     mv $FULL upload/$ROMNAME/$BRANCH/full
     mv $SHALLOW upload/$ROMNAME/$BRANCH/shallow
-    mv $FULLMD5 upload/$ROMNAME/$BRANCH/full
-    mv $SHALLOWMD5 upload/$ROMNAME/$BRANCH/shallow
 
     echo -e "Done sorting."
+
+    # Md5s
+
+    echo - "Taking md5sums"
+
+    cd $DIR/$ROMNAME/upload/$ROMNAME/$BRANCH/full
+    md5sum * > $ROMNAME-$BRANCH-full-$(date +%Y%m%d).parts.md5sum
+
+    cd $DIR/$ROMNAME/upload/$ROMNAME/$BRANCH/shallow
+    md5sum * > $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).parts.md5sum
 
 }
 
