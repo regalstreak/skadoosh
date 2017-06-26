@@ -80,8 +80,9 @@ doshallow(){
     mkdir $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d)
     mv shallow/.repo/ $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d)
     cd $DIR/$ROMNAME/
+    mkdir shallowparts
     export XZ_OPT=-9e
-    time tar -I pxz -cvf $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d)/
+    time tar -I pxz -cvf - $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d)/ | split -b 4800M - shallowparts/$ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).tar.xz.
     # Definitions
     if [ -z "$HOST" ]; then
         echo "Please read the instructions"
@@ -104,7 +105,7 @@ doshallow(){
         exit 1
     fi
 
-    SHALLOW="$ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).tar.xz"
+    SHALLOW="shallowparts/$ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).tar.xz.*"
 
     cd $DIR/$ROMNAME/
 
@@ -126,8 +127,9 @@ dofull(){
     mkdir $ROMNAME-$BRANCH-full-$(date +%Y%m%d)
     mv full/.repo $ROMNAME-$BRANCH-full-$(date +%Y%m%d)
     cd $DIR/$ROMNAME/
+    mkdir fullparts
     export XZ_OPT=-9e
-    time tar -I pxz -cvf $ROMNAME-$BRANCH-full-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-full-$(date +%Y%m%d)/
+    time tar -I pxz -cvf - $ROMNAME-$BRANCH-full-$(date +%Y%m%d)/ | split -b 4800M - fullparts/$ROMNAME-$BRANCH-full-$(date +%Y%m%d).tar.xz.
     # Definitions
     if [ -z "$HOST" ]; then
         echo "Please read the instructions"
@@ -150,7 +152,7 @@ dofull(){
         exit 1
     fi
 
-    FULL="$ROMNAME-$BRANCH-full-$(date +%Y%m%d).tar.xz"
+    FULL="fullparts/$ROMNAME-$BRANCH-full-$(date +%Y%m%d).tar.xz.*wput ssh"
 
     cd $DIR/$ROMNAME/
 
@@ -158,14 +160,12 @@ dofull(){
 
 upload(){
   if [ -e $FULL ]; then
-    cp $FULL ../../../
     wput $FULL ftp://"$SKAUSER":"$PASSWD"@"$HOST"/
   else
     echo "$FULL does not exist. Not uploading the shallow tarball."
   fi
 
   if [ -e $SHALLOW ]; then
-  cp $SHALLOW ../../../
   wput $SHALLOW ftp://"$SKAUSER":"$PASSWD"@"$HOST"/
   else
   echo "$SHALLOW does not exist. Not uploading the shallow tarball."
