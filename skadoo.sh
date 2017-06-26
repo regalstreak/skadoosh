@@ -43,6 +43,30 @@ installstuff(){
 
 }
 
+checkdefinitions(){
+    # Definitions
+    if [ -z "$HOST" ]; then
+        echo "Please read the instructions"
+        echo "HOST is not set"
+        echo "Uploading failed"
+        exit 1
+    fi
+
+    if [ -z "$SKAUSER" ]; then
+        echo "Please read the instructions"
+        echo "SKAUSER is not set"
+        echo "Uploading failed"
+        exit 1
+    fi
+
+    if [ -z "$PASSWD" ]; then
+        echo "Please read the instructions"
+        echo "PASSWD is not set"
+        echo "Uploading failed"
+        exit 1
+    fi
+}
+
 checkstarttime(){
 
     # Check the starting time
@@ -74,7 +98,6 @@ doshallow(){
     # Sync it up!
     time repo sync -c -f --force-sync --no-clone-bundle --no-tags -j$THREAD_COUNT_SYNC
 
-
     cd $DIR/$ROMNAME/
 
     mkdir $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d)
@@ -83,27 +106,6 @@ doshallow(){
     mkdir shallowparts
     export XZ_OPT=-9e
     time tar -I pxz -cvf - $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d)/ | split -b 4800M - shallowparts/$ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).tar.xz.
-    # Definitions
-    if [ -z "$HOST" ]; then
-        echo "Please read the instructions"
-        echo "HOST is not set"
-        echo "Uploading failed"
-        exit 1
-    fi
-
-    if [ -z "$SKAUSER" ]; then
-        echo "Please read the instructions"
-        echo "SKAUSER is not set"
-        echo "Uploading failed"
-        exit 1
-    fi
-
-    if [ -z "$PASSWD" ]; then
-        echo "Please read the instructions"
-        echo "PASSWD is not set"
-        echo "Uploading failed"
-        exit 1
-    fi
 
     SHALLOW="shallowparts/$ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).tar.xz.*"
 
@@ -130,27 +132,6 @@ dofull(){
     mkdir fullparts
     export XZ_OPT=-9e
     time tar -I pxz -cvf - $ROMNAME-$BRANCH-full-$(date +%Y%m%d)/ | split -b 4800M - fullparts/$ROMNAME-$BRANCH-full-$(date +%Y%m%d).tar.xz.
-    # Definitions
-    if [ -z "$HOST" ]; then
-        echo "Please read the instructions"
-        echo "HOST is not set"
-        echo "Uploading failed"
-        exit 1
-    fi
-
-    if [ -z "$SKAUSER" ]; then
-        echo "Please read the instructions"
-        echo "SKAUSER is not set"
-        echo "Uploading failed"
-        exit 1
-    fi
-
-    if [ -z "$PASSWD" ]; then
-        echo "Please read the instructions"
-        echo "PASSWD is not set"
-        echo "Uploading failed"
-        exit 1
-    fi
 
     FULL="fullparts/$ROMNAME-$BRANCH-full-$(date +%Y%m%d).tar.xz.*wput ssh"
 
@@ -159,17 +140,20 @@ dofull(){
 }
 
 upload(){
-  if [ -e $FULL ]; then
-    wput $FULL ftp://"$SKAUSER":"$PASSWD"@"$HOST"/
-  else
-    echo "$FULL does not exist. Not uploading the shallow tarball."
-  fi
+    
+    checkdefinitions
 
-  if [ -e $SHALLOW ]; then
-  wput $SHALLOW ftp://"$SKAUSER":"$PASSWD"@"$HOST"/
-  else
-  echo "$SHALLOW does not exist. Not uploading the shallow tarball."
-  fi
+    if [ -e $FULL ]; then
+        wput $FULL ftp://"$SKAUSER":"$PASSWD"@"$HOST"/
+    else
+        echo "$FULL does not exist. Not uploading the shallow tarball."
+    fi
+
+    if [ -e $SHALLOW ]; then
+        wput $SHALLOW ftp://"$SKAUSER":"$PASSWD"@"$HOST"/
+    else
+        echo "$SHALLOW does not exist. Not uploading the shallow tarball."
+    fi
 
 }
 # Do All The Stuff
@@ -201,6 +185,6 @@ if [ $? -eq 0 ]; then
   rm -rf $DIR/$ROMNAME
 else
   echo "Something failed :(";
-  rm -rf $DIR/$ROMNAME/shallow $DIR/$ROMNAME/full
+  rm -rf $DIR/$ROMNAME/shallow $DIR/$ROMNAME/full $DIR/$ROMNAME/shallowparts $DIR/$ROMNAME/fullparts
   exit 1;
 fi
