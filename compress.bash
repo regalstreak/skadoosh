@@ -15,7 +15,7 @@ name=LineageOS
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://github.com/LineageOS/android
+manifest=https://github.com/LineageOS/android.git
 
 
 # Manifest branch.
