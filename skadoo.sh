@@ -106,8 +106,10 @@ doshallow(){
     mkdir shallowparts
     export XZ_OPT=-9e
     time tar -I pxz -cvf - $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d)/ | split -b 4800M - shallowparts/$ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).tar.xz.
+    md5sum shallowparts/* > $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).parts.md5sum
 
     SHALLOW="shallowparts/$ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).tar.xz.*"
+    SHALLLOWMD5="$ROMNAME-$BRANCH-shallow-$(date +%Y%m%d.parts.md5sum"
 
     cd $DIR/$ROMNAME/
 
@@ -132,8 +134,10 @@ dofull(){
     mkdir fullparts
     export XZ_OPT=-9e
     time tar -I pxz -cvf - $ROMNAME-$BRANCH-full-$(date +%Y%m%d)/ | split -b 4800M - fullparts/$ROMNAME-$BRANCH-full-$(date +%Y%m%d).tar.xz.
+    md5sum fullparts/* > $ROMNAME-$BRANCH-full-$(date +%Y%m%d).parts.md5sum
 
     FULL="fullparts/$ROMNAME-$BRANCH-full-$(date +%Y%m%d).tar.xz.*"
+    FULLMD5="$ROMNAME-$BRANCH-full-$(date +%Y%m%d).parts.md5sum"
 
     cd $DIR/$ROMNAME/
 
@@ -145,12 +149,14 @@ upload(){
 
     if [ -e $FULL ]; then
         wput $FULL ftp://"$SKAUSER":"$PASSWD"@"$HOST"/
+        wput $FULLMD5 ftp://"$SKAUSER":"$PASSWD"@"$HOST"/
     else
         echo "$FULL does not exist. Not uploading the shallow tarball."
     fi
 
     if [ -e $SHALLOW ]; then
         wput $SHALLOW ftp://"$SKAUSER":"$PASSWD"@"$HOST"/
+        wput $SHALLOWMD5 ftp://"$SKAUSER":"$PASSWD"@"$HOST"/
     else
         echo "$SHALLOW does not exist. Not uploading the shallow tarball."
     fi
@@ -185,6 +191,6 @@ if [ $? -eq 0 ]; then
   rm -rf $DIR/$ROMNAME
 else
   echo "Something failed :(";
-  rm -rf $DIR/$ROMNAME/shallow $DIR/$ROMNAME/full $DIR/$ROMNAME/shallowparts $DIR/$ROMNAME/fullparts
+  rm -rf $DIR/$ROMNAME/shallow $DIR/$ROMNAME/full $DIR/$ROMNAME/shallowparts $DIR/$ROMNAME/fullparts $DIR/$ROMNAME/$SHALLLOWMD5 $DIR/$ROMNAME/$FULLMD5
   exit 1;
 fi
