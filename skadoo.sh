@@ -153,7 +153,7 @@ sort(){
     mv $FULL upload/$ROMNAME/$BRANCH/full
     mv $SHALLOW upload/$ROMNAME/$BRANCH/shallow
     mv $FULLMD5 upload/$ROMNAME/$BRANCH/full
-    mv $SHALLOWMD5 upload/$ROMNAME/$BRANCH/full
+    mv $SHALLOWMD5 upload/$ROMNAME/$BRANCH/shallow
 
     echo -e "Done sorting."
 
