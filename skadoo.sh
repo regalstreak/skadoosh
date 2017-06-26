@@ -86,7 +86,7 @@ doshallow(){
     cd $DIR/$ROMNAME/
     mkdir shallowparts
     export XZ_OPT=-9e
-    time tar -I pxz -cf - $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d)/ | split -b 4800M - shallowparts/$ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).tar.xz.
+    time tar -I pxz -cf - $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d)/ | split -b 4500M - shallowparts/$ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).tar.xz.
 
     echo -e "SHALLOW | Compressing done. Taking md5sums."
 
@@ -123,7 +123,7 @@ dofull(){
     cd $DIR/$ROMNAME/
     mkdir fullparts
     export XZ_OPT=-9e
-    time tar -I pxz -cf - $ROMNAME-$BRANCH-full-$(date +%Y%m%d)/ | split -b 4800M - fullparts/$ROMNAME-$BRANCH-full-$(date +%Y%m%d).tar.xz.
+    time tar -I pxz -cf - $ROMNAME-$BRANCH-full-$(date +%Y%m%d)/ | split -b 4500M - fullparts/$ROMNAME-$BRANCH-full-$(date +%Y%m%d).tar.xz.
 
     echo -e "FULL | Compressing done. Taking md5sums."
 
@@ -197,10 +197,10 @@ doallstuff(){
 # So at last do everything
 doallstuff
 if [ $? -eq 0 ]; then
-  echo "Everything done!"
-#  rm -rf $DIR/$ROMNAME
+    echo "Everything done!"
+    rm -rf $DIR/$ROMNAME
 else
-  echo "Something failed :(";
-#  rm -rf $DIR/$ROMNAME/shallow $DIR/$ROMNAME/full $DIR/$ROMNAME/shallowparts $DIR/$ROMNAME/fullparts $DIR/$ROMNAME/$SHALLOWMD5 $DIR/$ROMNAME/$FULLMD5 $DIR/$ROMNAME/upload
-  exit 1;
+    echo "Something failed :(";
+    rm -rf $DIR/$ROMNAME/shallow $DIR/$ROMNAME/full $DIR/$ROMNAME/shallowparts $DIR/$ROMNAME/fullparts $DIR/$ROMNAME/$SHALLOWMD5 $DIR/$ROMNAME/$FULLMD5 $DIR/$ROMNAME/upload
+    exit 1;
 fi
