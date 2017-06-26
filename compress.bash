@@ -10,17 +10,17 @@
 
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
-name=halogenOS
+name=LineageOS
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://github.com/halogenOS/android_manifest.git
+manifest=https://github.com/LineageOS/android
 
 
 # Manifest branch.
 # Example: cm-14.0
-branch=XOS-7.1
+branch=cm-13.0
 
 
 ### Finally, execute the stuff. ###
