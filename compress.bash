@@ -20,7 +20,7 @@ manifest=https://github.com/VertexOS/manifest.git
 
 # Manifest branch.
 # Example: cm-14.0
-branch=Vertex-7.1
+branch=n
 
 
 ### Finally, execute the stuff. ###
