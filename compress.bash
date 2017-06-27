@@ -10,17 +10,17 @@
 
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
-name=LineageOS
+name=VertexOS
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://github.com/LineageOS/android
+manifest=https://github.com/VertexOS/manifest.git
 
 
 # Manifest branch.
 # Example: cm-14.0
-branch=cm-13.0
+branch=Vertex-7.1
 
 
 ### Finally, execute the stuff. ###
