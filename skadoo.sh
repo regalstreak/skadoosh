@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Authors - Neil "regalstreak" Agarwal, Harsh "MSF Jarvis" Shandilya, Tarang "DigiGoon" Kagathara
-# 2016
+# 2017
 
 
 # Definitions
@@ -70,7 +70,7 @@ doshallow(){
 
     cd $DIR; mkdir -p $ROMNAME/shallow; cd $ROMNAME/shallow
 
-    repo init -u $LINK -b $BRANCH --depth 1 -q --reference $DIR/$ROMNAME/full/
+    repo init -u $LINK -b $BRANCH --depth 1 -q
 
     THREAD_COUNT_SYNC=32
 
@@ -94,6 +94,21 @@ doshallow(){
 
     echo -e "SHALLOW | Done."
 
+    echo -e "SHALLOW | Sorting"
+
+    sortshallow
+    upload
+
+    cd $DIR/ROMNAME
+
+    echo -e "SHALLOW | Cleaning"
+
+    rm -rf upload
+    rm -rf shallow
+    rm -rf $SHALLOWMD5
+    rm -rf shallowparts
+    rm -rf $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d)
+
 }
 
 dofull(){
@@ -102,7 +117,7 @@ dofull(){
 
     cd $DIR; mkdir -p $ROMNAME/full; cd $ROMNAME/full
 
-    repo init -u $LINK -b $BRANCH
+    repo init -u $LINK -b $BRANCH -q
 
     THREAD_COUNT_SYNC=32
 
@@ -126,21 +141,35 @@ dofull(){
 
     echo -e "FULL | Done."
 
+    echo -e "FULL | Sorting"
+
+    sortfull
+    upload
+
+    cd $DIR/ROMNAME
+
+    echo -e "FULL | Cleaning"
+
+    rm -rf upload
+    rm -rf full
+    rm -rf $FULLMD5
+    rm -rf fullparts
+    rm -rf $ROMNAME-$BRANCH-full-$(date +%Y%m%d)
+
 }
 
-sort(){
+sortshallow(){
 
-    echo -e "Begin to sort."
+    echo -e "SHALLOW | Begin to sort."
 
     cd $DIR/$ROMNAME
+    rm -rf upload
     mkdir upload
     cd upload
     mkdir -p $ROMNAME/$BRANCH
     cd $ROMNAME/$BRANCH
     mkdir shallow
-    mkdir full
     cd $DIR/$ROMNAME
-    mv $FULL upload/$ROMNAME/$BRANCH/full
     mv $SHALLOW upload/$ROMNAME/$BRANCH/shallow
 
     echo -e "Done sorting."
@@ -149,11 +178,32 @@ sort(){
 
     echo - "Taking md5sums"
 
-    cd $DIR/$ROMNAME/upload/$ROMNAME/$BRANCH/full
-    md5sum * > $ROMNAME-$BRANCH-full-$(date +%Y%m%d).parts.md5sum
-
     cd $DIR/$ROMNAME/upload/$ROMNAME/$BRANCH/shallow
     md5sum * > $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).parts.md5sum
+
+}
+
+sortfull(){
+
+    echo -e "Begin to sort."
+
+    cd $DIR/$ROMNAME
+    rm -rf upload
+    mkdir upload
+    cd upload
+    mkdir -p $ROMNAME/$BRANCH
+    cd $ROMNAME/$BRANCH
+    mkdir full
+    cd $DIR/$ROMNAME
+    mv $FULL upload/$ROMNAME/$BRANCH/full
+    echo -e "Done sorting."
+
+    # Md5s
+
+    echo - "Taking md5sums"
+
+    cd $DIR/$ROMNAME/upload/$ROMNAME/$BRANCH/full
+    md5sum * > $ROMNAME-$BRANCH-full-$(date +%Y%m%d).parts.md5sum
 
 }
 
