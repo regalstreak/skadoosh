@@ -10,6 +10,18 @@ DIR=$(pwd)
 LINK=$2
 ROMNAME=$1
 
+# Colors
+CL_XOS="\033[34;1m"
+CL_PFX="\033[33m"
+CL_INS="\033[36m"
+CL_RED="\033[31m"
+CL_GRN="\033[32m"
+CL_YLW="\033[33m"
+CL_BLU="\033[34m"
+CL_MAG="\033[35m"
+CL_CYN="\033[36m"
+CL_RST="\033[0m"
+
 # Functions
 installstuff(){
     # VENDOREDIT
@@ -66,7 +78,7 @@ checkfinishtime(){
 
 doshallow(){
 
-    echo -e "SHALLOW | Starting to sync."
+    echo -e $CL_RED"SHALLOW | Starting to sync."$CL_RST
 
     cd $DIR; mkdir -p $ROMNAME/shallow; cd $ROMNAME/shallow
 
@@ -77,7 +89,7 @@ doshallow(){
     # Sync it up!
     time repo sync -c -f -q --force-sync --no-clone-bundle --no-tags -j$THREAD_COUNT_SYNC
 
-    echo -e "SHALLOW | Syncing done. Moving and compressing."
+    echo -e $CL_RED"SHALLOW | Syncing done. Moving and compressing."$CL_RST
 
     cd $DIR/$ROMNAME/
 
@@ -92,16 +104,16 @@ doshallow(){
 
     cd $DIR/$ROMNAME/
 
-    echo -e "SHALLOW | Done."
+    echo -e $CL_RED"SHALLOW | Done."$CL_RST
 
-    echo -e "SHALLOW | Sorting"
+    echo -e $CL_RED"SHALLOW | Sorting."$CL_RST
 
     sortshallow
     upload
 
     cd $DIR/ROMNAME
 
-    echo -e "SHALLOW | Cleaning"
+    echo -e $CL_RED"SHALLOW | Cleaning"$CL_RST
 
     rm -rf upload
     rm -rf shallow
@@ -113,7 +125,7 @@ doshallow(){
 
 dofull(){
 
-    echo -e "FULL | Starting to sync."
+    echo -e $CL_CYN"FULL | Starting to sync."$CL_RST
 
     cd $DIR; mkdir -p $ROMNAME/full; cd $ROMNAME/full
 
@@ -124,7 +136,7 @@ dofull(){
     # Sync it up!
     time repo sync -c -f --force-sync -q --no-clone-bundle --no-tags -j$THREAD_COUNT_SYNC
 
-    echo -e "FULL | Syncing done. Moving and compressing."
+    echo -e $CL_CYN"FULL | Syncing done. Moving and compressing."$CL_RST
 
     cd $DIR/$ROMNAME/
 
@@ -139,16 +151,16 @@ dofull(){
 
     cd $DIR/$ROMNAME/
 
-    echo -e "FULL | Done."
+    echo -e $CL_CYN"FULL | Done."$CL_RST
 
-    echo -e "FULL | Sorting"
+    echo -e $CL_CYN"FULL | Sorting"$CL_RST
 
     sortfull
     upload
 
     cd $DIR/ROMNAME
 
-    echo -e "FULL | Cleaning"
+    echo -e $CL_CYN"FULL | Cleaning"$CL_RST
 
     rm -rf upload
     rm -rf full
@@ -160,7 +172,7 @@ dofull(){
 
 sortshallow(){
 
-    echo -e "SHALLOW | Begin to sort."
+    echo -e $CL_RED"SHALLOW | Begin to sort."$CL_RST
 
     cd $DIR/$ROMNAME
     rm -rf upload
@@ -172,11 +184,11 @@ sortshallow(){
     cd $DIR/$ROMNAME
     mv $SHALLOW upload/$ROMNAME/$BRANCH/shallow
 
-    echo -e "Done sorting."
+    echo -e $CL_PFX"Done sorting."$CL_RST
 
     # Md5s
 
-    echo - "Taking md5sums"
+    echo - $CL_PFX"Taking md5sums"
 
     cd $DIR/$ROMNAME/upload/$ROMNAME/$BRANCH/shallow
     md5sum * > $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).parts.md5sum
@@ -185,7 +197,7 @@ sortshallow(){
 
 sortfull(){
 
-    echo -e "Begin to sort."
+    echo -e $CL_PFX"Begin to sort."$CL_RST
 
     cd $DIR/$ROMNAME
     rm -rf upload
@@ -196,11 +208,11 @@ sortfull(){
     mkdir full
     cd $DIR/$ROMNAME
     mv $FULL upload/$ROMNAME/$BRANCH/full
-    echo -e "Done sorting."
+    echo -e $CL_PFX"Done sorting."$CL_RST
 
     # Md5s
 
-    echo - "Taking md5sums"
+    echo - $CL_PFX"Taking md5sums"
 
     cd $DIR/$ROMNAME/upload/$ROMNAME/$BRANCH/full
     md5sum * > $ROMNAME-$BRANCH-full-$(date +%Y%m%d).parts.md5sum
@@ -209,12 +221,12 @@ sortfull(){
 
 upload(){
 
-    echo -e "Begin to upload."
+    echo -e $CL_XOS"Begin to upload."$CL_RST
 
     cd $DIR/$ROMNAME/upload
     rsync -avPh --relative -e ssh $ROMNAME regalstreak@frs.sourceforge.net:/home/frs/project/skadoosh/
 
-    echo -e "Done uploading."
+    echo -e $CL_XOS"Done uploading."$CL_RST
 
 }
 # Do All The Stuff
