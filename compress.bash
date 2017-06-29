@@ -10,17 +10,17 @@
 
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
-name=XOSP
+name=XenonHD
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://github.com/XOSP-Project/platform_manifest.git
+manifest=https://github.com/TeamHorizon/platform_manifest
 
 
 # Manifest branch.
 # Example: cm-14.0
-branch=xosp-n-rebase
+branch=n
 
 
 ### Finally, execute the stuff. ###
