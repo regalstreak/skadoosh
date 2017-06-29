@@ -10,17 +10,17 @@
 
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
-name=VertexOS
+name=XOSP
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://github.com/VertexOS/manifest.git
+manifest=https://github.com/XOSP-Project/platform_manifest.git
 
 
 # Manifest branch.
 # Example: cm-14.0
-branch=n
+branch=xosp-n-rebase
 
 
 ### Finally, execute the stuff. ###
