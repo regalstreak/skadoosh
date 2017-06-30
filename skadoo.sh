@@ -111,7 +111,7 @@ doshallow(){
     sortshallow
     upload
 
-    cd $DIR/ROMNAME
+    cd $DIR/$ROMNAME
 
     echo -e $CL_RED"SHALLOW | Cleaning"$CL_RST
 
@@ -158,7 +158,7 @@ dofull(){
     sortfull
     upload
 
-    cd $DIR/ROMNAME
+    cd $DIR/$ROMNAME
 
     echo -e $CL_CYN"FULL | Cleaning"$CL_RST
 
@@ -188,7 +188,7 @@ sortshallow(){
 
     # Md5s
 
-    echo - $CL_PFX"Taking md5sums"
+    echo -e $CL_PFX"Taking md5sums"
 
     cd $DIR/$ROMNAME/upload/$ROMNAME/$BRANCH/shallow
     md5sum * > $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).parts.md5sum
@@ -212,7 +212,7 @@ sortfull(){
 
     # Md5s
 
-    echo - $CL_PFX"Taking md5sums"
+    echo -e $CL_PFX"Taking md5sums"
 
     cd $DIR/$ROMNAME/upload/$ROMNAME/$BRANCH/full
     md5sum * > $ROMNAME-$BRANCH-full-$(date +%Y%m%d).parts.md5sum
