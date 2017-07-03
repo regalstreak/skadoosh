@@ -10,17 +10,17 @@
 
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
-name=UltraCAF
+name=AOSP
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://github.com/UltraCAF/platform_manifest
+manifest=https://android.googlesource.com/platform/manifest
 
 
 # Manifest branch.
 # Example: cm-14.0
-branch=n-mr2
+branch=android-6.0.1_r67
 
 
 ### Finally, execute the stuff. ###
