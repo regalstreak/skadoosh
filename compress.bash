@@ -10,17 +10,17 @@
 
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
-name=AOSP
+name=OctOS
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://android.googlesource.com/platform/manifest
+manifest=https://github.com/Team-OctOS/platform_manifest
 
 
 # Manifest branch.
 # Example: cm-14.0
-branch=android-6.0.1_r67
+branch=oct-14.1
 
 
 ### Finally, execute the stuff. ###
