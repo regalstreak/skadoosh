@@ -9,15 +9,15 @@
 
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
-name=Dirty Unicorns
+name=ResurrectionRemix
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://github.com/DirtyUnicorns/android_manifest
+manifest=https://github.com/ResurrectionRemix/platform_manifest
 
 # Manifest branch.
 # Example: cm-14.0
-branch=n7x
+branch=nougat
 
 ### Finally, execute the stuff. ###
 /bin/bash skadoo.sh $name $manifest $branch
