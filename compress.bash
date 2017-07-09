@@ -9,15 +9,15 @@
 
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
-name=ResurrectionRemix
+name=LineageOS
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://github.com/ResurrectionRemix/platform_manifest
+manifest=https://github.com/LineageOS/android
 
 # Manifest branch.
 # Example: cm-14.0
-branch=nougat
+branch=cm-14.1
 
 ### Finally, execute the stuff. ###
 /bin/bash skadoo.sh $name $manifest $branch
