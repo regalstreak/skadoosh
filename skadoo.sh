@@ -244,12 +244,7 @@ doallstuff(){
     # Compress shallow
     doshallow
 
-    # Sort out all for scp upload
-    sort
-
-    # Upload that shit
-    upload
-
+    # End the timer
     checkfinishtime
 }
 
