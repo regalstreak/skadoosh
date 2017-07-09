@@ -10,17 +10,17 @@
 
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
-name=AOSP
+name=AOSPExtended
 
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://android.googlesource.com/platform/manifest
+manifest=https://github.com/AospExtended/manifest.git
 
 
 # Manifest branch.
 # Example: cm-14.0
-branch=android-6.0.1_r67
+branch=7.x
 
 
 ### Finally, execute the stuff. ###
