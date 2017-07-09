@@ -17,7 +17,7 @@ manifest=https://github.com/DirtyUnicorns/android_manifest
 
 # Manifest branch.
 # Example: cm-14.0
-branch=n7x-caf
+branch=n7x
 
 ### Finally, execute the stuff. ###
 /bin/bash skadoo.sh $name $manifest $branch
