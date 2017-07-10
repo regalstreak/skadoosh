@@ -17,7 +17,9 @@ manifest=https://github.com/AOKP/platform_manifest
 
 # Manifest branch.
 # Example: cm-14.0
+
 branch=mm
+
 
 ### Finally, execute the stuff. ###
 /bin/bash skadoo.sh $name $manifest $branch
