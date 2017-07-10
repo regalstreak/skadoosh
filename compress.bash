@@ -8,15 +8,15 @@
 ### Manifest Configuration ###
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
-name=GZR-ValidusOS
+name=DirtyUnicorns
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://github.com/GZR-ValidusOS/manifest
+manifest=https://github.com/DirtyUnicorns/android_manifest
 
 # Manifest branch.
 # Example: cm-14.0
-branch=n7.1.2
+branch=n7x
 
 ### Finally, execute the stuff. ###
 /bin/bash skadoo.sh $name $manifest $branch
