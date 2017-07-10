@@ -6,18 +6,17 @@
 # Can also be configured with a webhook along with automation as regalstreak and msf-jarvis have done.
 
 ### Manifest Configuration ###
-
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
-name=CosmicOS
+name=AOKP
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://github.com/Cosmic-OS/platform_manifest
+manifest=https://github.com/AOKP/platform_manifest
 
 # Manifest branch.
 # Example: cm-14.0
-branch=n-mr2
+branch=mm
 
 ### Finally, execute the stuff. ###
 /bin/bash skadoo.sh $name $manifest $branch
