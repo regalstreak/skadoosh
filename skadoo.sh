@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Authors - Neil "regalstreak" Agarwal, Harsh "MSF Jarvis" Shandilya, Tarang "DigiGoon" Kagathara
-# 2016
+# 2017
 
 
 # Definitions
@@ -9,6 +9,18 @@ BRANCH=$3
 DIR=$(pwd)
 LINK=$2
 ROMNAME=$1
+
+# Colors
+CL_XOS="\033[34;1m"
+CL_PFX="\033[33m"
+CL_INS="\033[36m"
+CL_RED="\033[31m"
+CL_GRN="\033[32m"
+CL_YLW="\033[33m"
+CL_BLU="\033[34m"
+CL_MAG="\033[35m"
+CL_CYN="\033[36m"
+CL_RST="\033[0m"
 
 # Functions
 installstuff(){
@@ -65,109 +77,156 @@ checkfinishtime(){
 
 
 doshallow(){
+
+    echo -e $CL_RED"SHALLOW | Starting to sync."$CL_RST
+
     cd $DIR; mkdir -p $ROMNAME/shallow; cd $ROMNAME/shallow
 
-    repo init -u $LINK -b $BRANCH --depth 1 -q --reference $DIR/$ROMNAME/full/
+    repo init -u $LINK -b $BRANCH --depth 1 -q
 
-    THREAD_COUNT_SYNC=8
+    THREAD_COUNT_SYNC=32
 
     # Sync it up!
-    time repo sync -c -f --force-sync --no-clone-bundle --no-tags -j$THREAD_COUNT_SYNC
+    time repo sync -c -f -q --force-sync --no-clone-bundle --no-tags -j$THREAD_COUNT_SYNC
 
+    echo -e $CL_RED"SHALLOW | Syncing done. Moving and compressing."$CL_RST
 
     cd $DIR/$ROMNAME/
 
     mkdir $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d)
     mv shallow/.repo/ $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d)
     cd $DIR/$ROMNAME/
+    mkdir shallowparts
     export XZ_OPT=-9e
-    time tar -I pxz -cvf $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d)/
-    # Definitions
-    if [ -z "$HOST" ]; then
-        echo "Please read the instructions"
-        echo "HOST is not set"
-        echo "Uploading failed"
-        exit 1
-    fi
+    time tar -I pxz -cf - $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d)/ | split -b 4500M - shallowparts/$ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).tar.xz.
 
-    if [ -z "$USER" ]; then
-        echo "Please read the instructions"
-        echo "USER is not set"
-        echo "Uploading failed"
-        exit 1
-    fi
-
-    if [ -z "$PASSWD" ]; then
-        echo "Please read the instructions"
-        echo "PASSWD is not set"
-        echo "Uploading failed"
-        exit 1
-    fi
-
-    SHALLOW="$ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).tar.xz"
+    SHALLOW="shallowparts/$ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).tar.xz.*"
 
     cd $DIR/$ROMNAME/
+
+    echo -e $CL_RED"SHALLOW | Done."$CL_RST
+
+    echo -e $CL_RED"SHALLOW | Sorting."$CL_RST
+
+    sortshallow
+    upload
+
+    cd $DIR/$ROMNAME
+
+    echo -e $CL_RED"SHALLOW | Cleaning"$CL_RST
+
+    rm -rf upload
+    rm -rf shallow
+    rm -rf $SHALLOWMD5
+    rm -rf shallowparts
+    rm -rf $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d)
 
 }
 
 dofull(){
+
+    echo -e $CL_CYN"FULL | Starting to sync."$CL_RST
+
     cd $DIR; mkdir -p $ROMNAME/full; cd $ROMNAME/full
 
-    repo init -u $LINK -b $BRANCH
+    repo init -u $LINK -b $BRANCH -q
 
-    THREAD_COUNT_SYNC=8
+    THREAD_COUNT_SYNC=32
 
     # Sync it up!
     time repo sync -c -f --force-sync -q --no-clone-bundle --no-tags -j$THREAD_COUNT_SYNC
 
+    echo -e $CL_CYN"FULL | Syncing done. Moving and compressing."$CL_RST
 
     cd $DIR/$ROMNAME/
 
     mkdir $ROMNAME-$BRANCH-full-$(date +%Y%m%d)
     mv full/.repo $ROMNAME-$BRANCH-full-$(date +%Y%m%d)
     cd $DIR/$ROMNAME/
+    mkdir fullparts
     export XZ_OPT=-9e
-    time tar -I pxz -cvf $ROMNAME-$BRANCH-full-$(date +%Y%m%d).tar.xz $ROMNAME-$BRANCH-full-$(date +%Y%m%d)/
-    # Definitions
-    if [ -z "$HOST" ]; then
-        echo "Please read the instructions"
-        echo "HOST is not set"
-        echo "Uploading failed"
-        exit 1
-    fi
+    time tar -I pxz -cf - $ROMNAME-$BRANCH-full-$(date +%Y%m%d)/ | split -b 4500M - fullparts/$ROMNAME-$BRANCH-full-$(date +%Y%m%d).tar.xz.
 
-    if [ -z "$USER" ]; then
-        echo "Please read the instructions"
-        echo "USER is not set"
-        echo "Uploading failed"
-        exit 1
-    fi
-
-    if [ -z "$PASSWD" ]; then
-        echo "Please read the instructions"
-        echo "PASSWD is not set"
-        echo "Uploading failed"
-        exit 1
-    fi
-
-    FULL="$ROMNAME-$BRANCH-full-$(date +%Y%m%d).tar.xz"
+    FULL="fullparts/$ROMNAME-$BRANCH-full-$(date +%Y%m%d).tar.xz.*"
 
     cd $DIR/$ROMNAME/
+
+    echo -e $CL_CYN"FULL | Done."$CL_RST
+
+    echo -e $CL_CYN"FULL | Sorting"$CL_RST
+
+    sortfull
+    upload
+
+    cd $DIR/$ROMNAME
+
+    echo -e $CL_CYN"FULL | Cleaning"$CL_RST
+
+    rm -rf upload
+    rm -rf full
+    rm -rf $FULLMD5
+    rm -rf fullparts
+    rm -rf $ROMNAME-$BRANCH-full-$(date +%Y%m%d)
+
+}
+
+sortshallow(){
+
+    echo -e $CL_RED"SHALLOW | Begin to sort."$CL_RST
+
+    cd $DIR/$ROMNAME
+    rm -rf upload
+    mkdir upload
+    cd upload
+    mkdir -p $ROMNAME/$BRANCH
+    cd $ROMNAME/$BRANCH
+    mkdir shallow
+    cd $DIR/$ROMNAME
+    mv $SHALLOW upload/$ROMNAME/$BRANCH/shallow
+
+    echo -e $CL_PFX"Done sorting."$CL_RST
+
+    # Md5s
+
+    echo -e $CL_PFX"Taking md5sums"
+
+    cd $DIR/$ROMNAME/upload/$ROMNAME/$BRANCH/shallow
+    md5sum * > $ROMNAME-$BRANCH-shallow-$(date +%Y%m%d).parts.md5sum
+
+}
+
+sortfull(){
+
+    echo -e $CL_PFX"Begin to sort."$CL_RST
+
+    cd $DIR/$ROMNAME
+    rm -rf upload
+    mkdir upload
+    cd upload
+    mkdir -p $ROMNAME/$BRANCH
+    cd $ROMNAME/$BRANCH
+    mkdir full
+    cd $DIR/$ROMNAME
+    mv $FULL upload/$ROMNAME/$BRANCH/full
+    echo -e $CL_PFX"Done sorting."$CL_RST
+
+    # Md5s
+
+    echo -e $CL_PFX"Taking md5sums"
+
+    cd $DIR/$ROMNAME/upload/$ROMNAME/$BRANCH/full
+    md5sum * > $ROMNAME-$BRANCH-full-$(date +%Y%m%d).parts.md5sum
 
 }
 
 upload(){
-  if [ -e $FULL ]; then
-    wput $FULL ftp://"$USER":"$PASSWD"@"$HOST"/
-  else
-    echo "$FULL does not exist. Not uploading the shallow tarball."
-  fi
 
-  if [ -e $SHALLOW ]; then
-  wput $SHALLOW ftp://"$USER":"$PASSWD"@"$HOST"/
-  else
-  echo "$SHALLOW does not exist. Not uploading the shallow tarball."
-  fi
+    echo -e $CL_XOS"Begin to upload."$CL_RST
+
+    cd $DIR/$ROMNAME/upload
+    rsync -avPh --relative -e ssh $ROMNAME regalstreak@frs.sourceforge.net:/home/frs/project/skadoosh/
+
+    echo -e $CL_XOS"Done uploading."$CL_RST
 
 }
 # Do All The Stuff
@@ -185,9 +244,7 @@ doallstuff(){
     # Compress shallow
     doshallow
 
-    # Upload that shit
-    upload
-
+    # End the timer
     checkfinishtime
 }
 
@@ -195,10 +252,10 @@ doallstuff(){
 # So at last do everything
 doallstuff
 if [ $? -eq 0 ]; then
-  echo "Everything done!"
-  rm -rf $DIR/$ROMNAME
+    echo "Everything done!"
+    rm -rf $DIR/$ROMNAME
 else
-  echo "Something failed :(";
-  rm -rf $DIR/$ROMNAME/shallow $DIR/$ROMNAME/full
-  exit 1;
+    echo "Something failed :(";
+    rm -rf $DIR/$ROMNAME/shallow $DIR/$ROMNAME/full $DIR/$ROMNAME/shallowparts $DIR/$ROMNAME/fullparts $DIR/$ROMNAME/$SHALLOWMD5 $DIR/$ROMNAME/$FULLMD5 $DIR/$ROMNAME/upload
+    exit 1;
 fi
