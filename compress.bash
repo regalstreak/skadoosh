@@ -9,6 +9,7 @@
 
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
+
 name=AOKP
 
 # Manifest link. https:// is mandatory.
@@ -19,6 +20,7 @@ manifest=https://github.com/AOKP/platform_manifest
 # Example: cm-14.0
 
 branch=mm
+
 
 
 ### Finally, execute the stuff. ###
