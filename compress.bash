@@ -9,7 +9,7 @@
 
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
-name=Dirty Unicorns
+name=DirtyUnicorns
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
