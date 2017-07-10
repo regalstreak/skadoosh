@@ -6,10 +6,8 @@
 # Can also be configured with a webhook along with automation as regalstreak and msf-jarvis have done.
 
 ### Manifest Configuration ###
-
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
-
 name=AOKP
 
 # Manifest link. https:// is mandatory.
@@ -18,10 +16,7 @@ manifest=https://github.com/AOKP/platform_manifest
 
 # Manifest branch.
 # Example: cm-14.0
-
 branch=mm
-
-
 
 ### Finally, execute the stuff. ###
 /bin/bash skadoo.sh $name $manifest $branch
