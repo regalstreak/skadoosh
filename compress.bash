@@ -6,7 +6,6 @@
 # Can also be configured with a webhook along with automation as regalstreak and msf-jarvis have done.
 
 ### Manifest Configuration ###
-
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
 name=GZR-ValidusOS
