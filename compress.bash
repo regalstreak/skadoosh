@@ -8,15 +8,15 @@
 ### Manifest Configuration ###
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
-name=Candy
+name=Atomic-os
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://github.com/CandyRoms/candy
+manifest=https://github.com/Atomic-OS/platform_manifest
 
 # Manifest branch.
 # Example: cm-14.0
-branch=c7.1.2
+branch=n-mr2
 
 ### Finally, execute the stuff. ###
 /bin/bash skadoo.sh $name $manifest $branch
