@@ -8,15 +8,15 @@
 ### Manifest Configuration ###
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
-name=crDroid
+name=Miui
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://github.com/crdroidandroid/android
+manifest=https://github.com/MiCode/patchrom
 
 # Manifest branch.
 # Example: cm-14.0
-branch=7.1
+branch=marshmallow
 
 ### Finally, execute the stuff. ###
 /bin/bash skadoo.sh $name $manifest $branch
