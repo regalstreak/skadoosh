@@ -8,15 +8,15 @@
 ### Manifest Configuration ###
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
-name=LineageOS
+name=DirtyUnicorns
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://github.com/LineageOS/android
+manifest=https://github.com/DirtyUnicorns/android_manifest
 
 # Manifest branch.
 # Example: cm-14.0
-branch=cm-14.1
+branch=n7x-caf
 
 ### Finally, execute the stuff. ###
 /bin/bash skadoo.sh $name $manifest $branch
