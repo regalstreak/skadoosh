@@ -6,17 +6,18 @@
 # Can also be configured with a webhook along with automation as regalstreak and msf-jarvis have done.
 
 ### Manifest Configuration ###
-# Name of the ROM. No Spaces Please.
+# Name of the . No Spaces Please.
 # Example: CyanogenMod
-name=DirtyUnicorns
+name=octos
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://github.com/DirtyUnicorns/android_manifest
+manifest=https://github.com/Team-OctOS/platform_manifest/tree/oct-mm
+
 
 # Manifest branch.
-# Example: cm-14.0
-branch=n7x-caf
+# Example: cm-13.0
+branch=octos-mm
 
 ### Finally, execute the stuff. ###
 /bin/bash skadoo.sh $name $manifest $branch
