@@ -8,15 +8,15 @@
 ### Manifest Configuration ###
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
-name=OctOS
+name=OmniRom
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://github.com/Team-OctOS/platform_manifest.git
+manifest=https://github.com/omnirom/android.git
 
 # Manifest branch.
 # Example: cm-14.0
-branch=oct-mm
+branch=android-7.1
 
 ### Finally, execute the stuff. ###
 /bin/bash skadoo.sh $name $manifest $branch
