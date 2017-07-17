@@ -8,15 +8,15 @@
 ### Manifest Configuration ###
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
-name=OmniRom
+name=ResurrectionRemix
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://github.com/omnirom/android.git
+manifest=https://github.com/ResurrectionRemix/platform_manifest
 
 # Manifest branch.
 # Example: cm-14.0
-branch=android-7.1
+branch=nougat
 
 ### Finally, execute the stuff. ###
 /bin/bash skadoo.sh $name $manifest $branch
