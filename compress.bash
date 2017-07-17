@@ -12,7 +12,7 @@ name=octos
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://github.com/Team-OctOS/platform_manifest/tree/oct-mm
+manifest=https://github.com/Team-OctOS/platform_manifest -b oct-14.1
 
 
 # Manifest branch.
