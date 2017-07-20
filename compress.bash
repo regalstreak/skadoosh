@@ -8,15 +8,15 @@
 ### Manifest Configuration ###
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
-name=OrionOS
+name=LineageOS
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://github.com/TeamOrion/platform_manifest
+manifest=https://github.com/LineageOS/android
 
 # Manifest branch.
 # Example: cm-14.0
-branch=n7.x
+branch=cm-14.0
 
 ### Finally, execute the stuff. ###
 /bin/bash skadoo.sh $name $manifest $branch
