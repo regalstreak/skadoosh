@@ -16,7 +16,7 @@ manifest=https://android.googlesource.com/platform/manifest
 
 # Manifest branch.
 # Example: cm-14.0
-branch=android-7.1.2_r27
+branch=android-8.0.0_r4
 
 ### Finally, execute the stuff. ###
 /bin/bash skadoo.sh $name $manifest $branch
