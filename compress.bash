@@ -8,15 +8,15 @@
 ### Manifest Configuration ###
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
-name=AOSP
+name=AOSCP
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://android.googlesource.com/platform/manifest
+manifest=https://github.com/CypherOS/platform_manifest.git
 
 # Manifest branch.
 # Example: cm-14.0
-branch=android-7.1.2_r27
+branch=oreo-release
 
 ### Finally, execute the stuff. ###
 /bin/bash skadoo.sh $name $manifest $branch
