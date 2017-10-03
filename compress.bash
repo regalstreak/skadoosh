@@ -12,11 +12,10 @@ name=CyanogenMod
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://github.com/cyanogenmod/android
-
+manifest=https://github.com/omnirom/android
 # Manifest branch.
 # Example: cm-14.0
-branch=cm-14.1
+branch=android-5.1
 
 ### Finally, execute the stuff. ###
 /bin/bash skadoo.sh $name $manifest $branch
