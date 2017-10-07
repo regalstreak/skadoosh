@@ -8,15 +8,15 @@
 ### Manifest Configuration ###
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
-name=Lineage-OMS
+name=TeslaRom
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://github.com/LineageOMS/android
+manifest=https://github.com/TeslaRom-N/manifest
 
 # Manifest branch.
 # Example: cm-14.0
-branch=cm-14.1
+branch=n7.1.2
 
 ### Finally, execute the stuff. ###
 /bin/bash skadoo.sh $name $manifest $branch
