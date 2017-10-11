@@ -8,15 +8,15 @@
 ### Manifest Configuration ###
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
-name=DND
+name=AOSP-CAF
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://github.com/DarkNess-reDefined/manifest
+manifest=https://github.com/AOSP-CAF/platform_manifest.git
 
 # Manifest branch.
 # Example: cm-14.0
-branch=n7x
+branch=n-mr2
 
 ### Finally, execute the stuff. ###
 /bin/bash skadoo.sh $name $manifest $branch
