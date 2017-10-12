@@ -8,15 +8,15 @@
 ### Manifest Configuration ###
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
-name=Lineage-OMS
+name=infinixOS
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://github.com/LineageOMS/android
+manifest=https://github.com/OpenSource-Infinix/android
 
 # Manifest branch.
 # Example: cm-14.0
-branch=cm-14.1
+branch=X556N
 
 ### Finally, execute the stuff. ###
 /bin/bash skadoo.sh $name $manifest $branch
