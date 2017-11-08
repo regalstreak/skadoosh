@@ -8,15 +8,15 @@
 ### Manifest Configuration ###
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
-name=DND
+name=Slim
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://github.com/DarkNess-reDefined/manifest
+manifest=https://github.com/SlimRoms/platform_manifest
 
 # Manifest branch.
 # Example: cm-14.0
-branch=n7x
+branch=ng7.1
 
 ### Finally, execute the stuff. ###
 /bin/bash skadoo.sh $name $manifest $branch
