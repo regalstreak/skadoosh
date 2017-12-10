@@ -8,15 +8,15 @@
 ### Manifest Configuration ###
 # Name of the ROM. No Spaces Please.
 # Example: CyanogenMod
-name=DND
+name=viperOs
 
 # Manifest link. https:// is mandatory.
 # Example: https://github.com/cyanogenmod/android
-manifest=https://github.com/DarkNess-reDefined/manifest
+manifest=https://github.com/Viper-Project/viper_manifest
 
 # Manifest branch.
 # Example: cm-14.0
-branch=n7x
+branch=nought
 
 ### Finally, execute the stuff. ###
 /bin/bash skadoo.sh $name $manifest $branch
