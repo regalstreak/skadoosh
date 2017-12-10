@@ -16,7 +16,7 @@ manifest=https://github.com/Viper-Project/viper_manifest
 
 # Manifest branch.
 # Example: cm-14.0
-branch=nought
+branch=nougat
 
 ### Finally, execute the stuff. ###
 /bin/bash skadoo.sh $name $manifest $branch
